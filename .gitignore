@@ -1,0 +1,16 @@
+# Base Rústico - Git Ignore
+
+# Editor & Tooling
+.agents/
+.stitch/
+.gemini/
+.idea/
+.vscode/
+
+# Backups
+*_backup.html
+old_versions/
+
+# System Files
+Thumbs.db
+.DS_Store

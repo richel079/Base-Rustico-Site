@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-PT">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Noto+Sans:wght@300;400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c8a96a",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#0F0F10",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        h1, h2, h3, .font-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+    
+    <!-- Cookie Banner Styles -->
+    <style>
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a1b;
+            border-top: 1px solid rgba(200, 169, 106, 0.3);
+            padding: 20px 40px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        #cookie-banner.visible { transform: translateY(0); }
+        .cookie-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 280px; }
+        .cookie-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .cookie-logo svg { width: 24px; height: 24px; fill: #c8a96a; }
+        .cookie-logo span { font-size: 14px; font-weight: bold; color: #c8a96a; letter-spacing: 0.05em; white-space: nowrap; }
+        .cookie-divider { width: 1px; height: 36px; background: rgba(200, 169, 106, 0.2); flex-shrink: 0; }
+        .cookie-text { font-size: 13px; color: #a0a0a0; line-height: 1.5; }
+        .cookie-text a { color: #c8a96a; text-decoration: underline; cursor: pointer; }
+        .cookie-text a:hover { color: #e0c07a; }
+        .cookie-buttons { display: flex; gap: 12px; flex-shrink: 0; align-items: center; }
+        .btn-rejeitar { background: transparent; border: 1px solid rgba(200, 169, 106, 0.4); color: #a0a0a0; padding: 10px 24px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s ease; white-space: nowrap; }
+        .btn-rejeitar:hover { border-color: #c8a96a; color: #c8a96a; }
+        .btn-aceitar { background: #c8a96a; border: 1px solid #c8a96a; color: #0F0F10; padding: 10px 24px; font-size: 12px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s ease; white-space: nowrap; }
+        .btn-aceitar:hover { background: #e0c07a; border-color: #e0c07a; }
+        #cookie-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1a1b; border: 1px solid rgba(200, 169, 106, 0.3); color: #c8a96a; padding: 12px 24px; border-radius: 4px; font-size: 13px; z-index: 9998; opacity: 0; transition: all 0.3s ease; white-space: nowrap; }
+        #cookie-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        @media (max-width: 640px) {
+            #cookie-banner { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+            .cookie-left { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .cookie-divider { display: none; }
+            .cookie-buttons { width: 100%; }
+            .btn-rejeitar, .btn-aceitar { flex: 1; text-align: center; }
+        }
+
+        /* Popup Styles */
+        #popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 20px;
+        }
+        #popup-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #popup-box {
+            background: #1a1a1b;
+            border: 1px solid rgba(200, 169, 106, 0.3);
+            border-radius: 8px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        #popup-overlay.visible #popup-box {
+            transform: translateY(0);
+        }
+        #popup-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            font-size: 22px;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        #popup-close:hover { color: #c8a96a; }
+        .popup-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 20px;
+            fill: #c8a96a;
+        }
+        .popup-pretitle {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #c8a96a;
+            margin-bottom: 12px;
+            font-family: sans-serif;
+        }
+        .popup-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            font-family: 'Noto Serif', Georgia, serif;
+        }
+        .popup-title span { color: #c8a96a; font-style: italic; }
+        .popup-text {
+            font-size: 14px;
+            color: #a0a0a0;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            font-family: sans-serif;
+        }
+        .popup-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #c8a96a;
+            color: #0F0F10;
+            border: none;
+            padding: 14px 32px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        .popup-btn:hover { background: #e0c07a; }
+        .popup-btn svg { width: 18px; height: 18px; fill: #0F0F10; flex-shrink: 0; }
+        .popup-skip {
+            display: block;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            font-family: sans-serif;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            width: 100%;
+        }
+        .popup-skip:hover { color: #a0a0a0; }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+    <nav class="sticky top-0 z-50 border-b border-primary/10 bg-background-dark/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index_nova.html" class="flex items-center gap-2 transition-opacity hover:opacity-80">
+                <span class="material-symbols-outlined text-primary text-3xl">landscape</span>
+                <span class="text-xl font-display font-bold tracking-tight text-white">Base Rústico</span>
+            </a>
+            <div class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest text-slate-300"
+                    href="#servicos">Serviços</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest text-slate-300"
+                    href="#projetos">Projetos</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest text-slate-300"
+                    href="#sobre">Sobre</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest text-slate-300"
+                    href="#visao">Visão</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest text-slate-300"
+                    href="#contacto">Contacto</a>
+            </div>
+            <a href="analise.html"
+                class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded text-sm font-bold uppercase tracking-wider transition-all">
+                Analisar Terreno
+            </a>
+        </div>
+    </nav>
+    <section class="relative h-[85vh] flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-background-dark via-background-dark/60 to-transparent z-10">
+            </div>
+            <img class="w-full h-full object-cover"
+                data-alt="Cinematic aerial view of Portuguese rural landscape with mountains"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPse_LF-mC4q189vb8XjiwsIx8yZaTAWuhxlqRSd9qqnq1JyJ9AcASYGP26b0E1QZvjpImZzU92cKPq7HAAFiBl_QIv00x7QiOIG-H9TZibeHyPxfCuZaoqMLhDvmojAqWbSw_l24cwLsCEQTTVRNU1txEXvkWa8U4VA0vWtZol7wv0ohgoLOi0bFRX7xOv3EJB38HM7NQSSAFkTv0XEX4GlH9usOJ8Ns_nLfpTMNOPPpZMwFKaqBq3gH7mFmTseimQgEnUjTHBvx_" />
+        </div>
+        <div class="relative z-20 max-w-7xl mx-auto px-6 w-full">
+            <div class="max-w-4xl">
+                <h1 class="text-5xl md:text-7xl font-display text-white leading-[1.15] mb-8">
+                    Transformamos terrenos rústicos em projetos rentáveis de ecoturismo em Portugal
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 max-w-3xl leading-relaxed font-light">
+                    Consultoria especializada na análise de terrenos e desenvolvimento de projetos turísticos
+                    sustentáveis como ecovillages, eco resorts, glamping e parques de caravanismo.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 bg-background-light dark:bg-background-dark border-b border-primary/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Oportunidade de
+                        Mercado</span>
+                    <h2 class="text-4xl md:text-5xl font-display mb-8">O futuro do turismo está na natureza &mdash; e
+                        Portugal está no centro desta mudança</h2>
+                    <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                        Portugal voltou ao mapa do mundo. O viajante moderno já não quer hotéis de cidade nem praias
+                        superlotadas &mdash; procura natureza, autenticidade e experiências que não se encontram em
+                        catálogos.
+                    </p>
+                        O Algarve e o Alentejo estão a tornar-se os destinos preferenciais para o novo luxo: o silêncio,
+                        o espaço e a ligação autêntica com a terra. O potencial de valorização de terrenos rústicos nestas
+                        regiões é imenso, desde que o projeto seja bem estruturado e focado na sustentabilidade.
+                    </p>
+                    <div class="flex gap-4 items-center p-6 border border-primary/10 bg-primary/5 rounded-lg mb-8">
+                        <span class="material-symbols-outlined text-primary text-4xl">trending_up</span>
+                        <div>
+                            <h4 class="text-white font-bold mb-1 uppercase tracking-widest text-xs">Crescimento Sustentado</h4>
+                            <p class="text-sm text-slate-400 font-light">Procura por ecoturismo cresce 15% ao ano na Europa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!-- Grelha de Dados (Estatísticas Animadas) -->
+                    <div class="grid grid-cols-2 gap-4 sm:gap-6 h-full min-h-[400px]" id="stats-grid">
+                        <!-- Card 1 -->
+                        <div class="bg-white/[0.03] border border-white/5 shadow-2xl rounded-2xl p-6 flex flex-col justify-center items-center text-center relative overflow-hidden group hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 hover:-translate-y-1">
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75"></div>
+                            <span class="text-4xl md:text-6xl font-display text-white mb-2 counter-value drop-shadow-lg" data-target="300">0</span>
+                            <span class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">Dias de Sol</span>
+                            <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">Condições ideais de atratividade durante todo o ano</p>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="bg-white/[0.03] border border-white/5 shadow-2xl rounded-2xl p-6 flex flex-col justify-center items-center text-center relative overflow-hidden group hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 hover:-translate-y-1">
+                            <div class="absolute inset-0 bg-gradient-to-bl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"></div>
+                            <div class="flex items-baseline justify-center text-white mb-2 drop-shadow-lg">
+                                <span class="text-3xl md:text-4xl font-display text-primary">+</span>
+                                <span class="text-4xl md:text-6xl font-display counter-value" data-target="140">0</span>
+                                <span class="text-3xl md:text-4xl font-display text-primary">%</span>
+                            </div>
+                            <span class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">Aumento da Procura</span>
+                            <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">O crescimento constante no setor do turismo de natureza</p>
+                        </div>
+                        
+                        <!-- Card 3 -->
+                        <div class="bg-white/[0.03] border border-white/5 shadow-2xl rounded-2xl p-6 flex flex-col justify-center items-center text-center relative overflow-hidden group hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 hover:-translate-y-1">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150"></div>
+                            <span class="material-symbols-outlined text-4xl md:text-5xl text-white mb-3 font-light drop-shadow-lg">camping</span>
+                            <span class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">ECOTURISMO</span>
+                            <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">Hospedagem imersiva que gera receita contínua e impacto ambiental positivo.</p>
+                        </div>
+                        
+                        <!-- Card 4 -->
+                        <div class="bg-white/[0.03] border border-white/5 shadow-2xl rounded-2xl p-6 flex flex-col justify-center items-center text-center relative overflow-hidden group hover:bg-white/[0.06] hover:border-white/10 transition-all duration-500 hover:-translate-y-1">
+                            <div class="absolute inset-0 bg-gradient-to-tl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200"></div>
+                            <span class="material-symbols-outlined text-4xl md:text-5xl text-white mb-3 font-light drop-shadow-lg">query_stats</span>
+                            <span class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">Alta Rentabilidade</span>
+                            <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">Menor custo de implantação com ROI substancialmente mais rápido</p>
+                        </div>
+                    </div>
+    
+                    <!-- Animação Javascript dos Contadores -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const counters = document.querySelectorAll('.counter-value');
+                            const speed = 100; // Quanto menor, mais rápido
+    
+                            const animateCounters = () => {
+                                counters.forEach(counter => {
+                                    const updateCount = () => {
+                                        const target = +counter.getAttribute('data-target');
+                                        const count = +counter.innerText;
+                                        const inc = target / speed;
+    
+                                        if (count < target) {
+                                            counter.innerText = Math.ceil(count + inc);
+                                            setTimeout(updateCount, 15);
+                                        } else {
+                                            counter.innerText = target;
+                                        }
+                                    };
+                                    updateCount();
+                                });
+                            };
+    
+                            // Garantir que a animação só roda quando a grelha fica perfeitamente visível
+                            const observer = new IntersectionObserver((entries) => {
+                                if (entries[0].isIntersecting) {
+                                    // Pequeno delay de estilo para iniciar a contagem
+                                    setTimeout(() => { animateCounters(); }, 200);
+                                    observer.disconnect();
+                                }
+                            }, { threshold: 0.3 });
+    
+                            const grid = document.getElementById('stats-grid');
+                            if(grid) observer.observe(grid);
+                        });
+                    </script>
+                </div>
+            </div>
+    </section>
+    <section class="py-24 bg-background-dark" id="servicos">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Especialização</span>
+                <h2 class="text-4xl md:text-5xl font-display">O que fazemos</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div
+                    class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">analytics</span>
+                    <h3 class="text-xl font-display mb-4 text-white">Análise de Potencial</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Avaliação técnica detalhada da vocação
+                        turística e viabilidade comercial do seu terreno.</p>
+                </div>
+                <div
+                    class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">gavel</span>
+                    <h3 class="text-xl font-display mb-4 text-white">Verificação Jurídica</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Análise rigorosa de condicionantes legais: PDM,
+                        REN, RAN e regulamentos ambientais.</p>
+                </div>
+                <div
+                    class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">eco</span>
+                    <h3 class="text-xl font-display mb-4 text-white">Projetos Sustentáveis</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Desenvolvimento integral de conceitos de
+                        ecoturismo com foco em baixo impacto ambiental.</p>
+                </div>
+                <div
+                    class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">lightbulb</span>
+                    <h3 class="text-xl font-display mb-4 text-white">Criação de Conceitos</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Design de experiências únicas que diferenciam o
+                        seu projeto no mercado de luxo rural.</p>
+                </div>
+                <div
+                    class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">payments</span>
+                    <h3 class="text-xl font-display mb-4 text-white">Consultoria de Investimento</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Apoio estratégico para investidores que
+                        procuram ativos rústicos com alto potencial de retorno.</p>
+                </div>
+                <div
+                    class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">architecture</span>
+                    <h3 class="text-xl font-display mb-4 text-white">Gestão de Licenciamento</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Coordenação do processo burocrático junto das
+                        entidades municipais e regionais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 bg-background-light dark:bg-background-dark" id="projetos">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Portfólio de
+                        Conceitos</span>
+                    <h2 class="text-4xl md:text-5xl font-display">Tipologias de Projeto</h2>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[800px]">
+                <div class="md:col-span-8 relative overflow-hidden rounded-xl group min-h-[400px]">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        data-alt="Luxury glamping tent in a sunset meadow"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjgGetKe9mGGojL66BTh-rAexJTn-bLHhMzerPR84_YyurrVjn8D_pzoio9vCAOwK1EbL5F4VsynB62n3Gjn2EWKqnoRzagdKQYr1eZOKzZ6jM5T0x8V31VNMWqAGuaNxN0J76jUsA5ZFivAD3j4RmXAy4j_sW9bGXDumMv3-hWy2JxlYDYClkKUY2-9PadXJpnhKfFd88Ku5x8Pyzvjr9BRHYd6X14JXnD-WIa49XCAvMb0tjhtZs1DF-h_jJjeIjVT3no8N4jpWa" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-2xl font-display text-white mb-2">Glamping de Luxo</h3>
+                        <p class="text-slate-300">Conforto absoluto em plena harmonia com a natureza selvagem.</p>
+                    </div>
+                </div>
+                <div class="md:col-span-4 relative overflow-hidden rounded-xl group min-h-[400px]">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        data-alt="Eco-friendly wooden village houses"
+                        src="https://drive.google.com/thumbnail?id=1WLRW3NKoWVN7fh1YdF9Ixg36gx1qLkGz&sz=w1000" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-2xl font-display text-white mb-2">Ecovillages</h3>
+                        <p class="text-slate-300">Comunidades sustentáveis integradas.</p>
+                    </div>
+                </div>
+                <div class="md:col-span-4 relative overflow-hidden rounded-xl group min-h-[400px]">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        data-alt="Modern camper van park with amenities"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCFC1kf8lULBq7-q8cmqZxaZHx4AsRYwpgt2O_j5LEwiHSpSGlQpRNkxXNRwuPGHsxhjaVxpmW7T8EScNzAx85KXR9D9EWz0nnoFfBIHwSEXsy25SVHUrSZ78MNHu2Cnz6BZGgZMlNfLuhd8nwy2T_gxXMWEMbpPlTVaQdvX-aTJ5JghBG3RghYOSVGZ0LLx6NywN9wjkXAPy9TjElRrv4WZI3QWUkgPXMoHDE-EwQ0pKNtIaFNE9Kefsu0LkMtc4Xbih3mPIHEhnp" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-2xl font-display text-white mb-2">Parques de Caravanismo Premium</h3>
+                    </div>
+                </div>
+                <div class="md:col-span-8 relative overflow-hidden rounded-xl group min-h-[400px]">
+                    <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        data-alt="Sustainable boutique resort architecture"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUsmG9v-EEy_EPtKYEfPs9CzyM_jsemMT5jka5jfxvXM9Fwd3nEraC74VaIL8wo4cHj02oaaYL_LRyM7QOr3elGGVkQtd2FE5VZSDcHkUmUe8TFyh706H1CoVwQkg61Fr3fZZTakPK2cNUnhKT9XqqRUUTpziYeJxIlBMAVkc02mRX99pFt7KAVTHj1YR0Lg8Syx_OR_752U-H3xyufWmAgNvu64zXuE2cR2cQlsdljDCJjYr19i0bbyzg5jp5J_Xo0hfMXxVn5TK4" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-2xl font-display text-white mb-2">Eco Resorts &amp; Turismo de Natureza</h3>
+                        <p class="text-slate-300">Hospitalidade de alto nível com pegada ecológica zero.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 bg-white/[0.01]" id="sobre">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="w-full md:w-5/12 lg:w-2/5 mx-auto">
+                    <div class="relative max-w-sm mx-auto">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-primary"></div>
+                        <img class="w-full aspect-[4/5] object-cover grayscale hover:grayscale-0 transition-all duration-700 rounded-lg shadow-xl"
+                            data-alt="Professional portrait of Richel Goulart in a natural setting"
+                            src="https://drive.google.com/thumbnail?id=1fT-SznhGiuCZRnUEyq1QL-ukpmaqNymA&sz=w1000" />
+                    </div>
+                </div>
+                <div class="w-full md:w-7/12 lg:w-3/5">
+                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">O
+                        Consultor</span>
+                    <h2 class="text-4xl md:text-5xl font-display mb-8">Richel Goulart</h2>
+                    <p class="text-lg text-slate-300 leading-relaxed mb-6">
+                        Richel Goulart é consultor especializado no desenvolvimento de projetos de ecoturismo e na
+                        rentabilização de terrenos rústicos em Portugal. O seu trabalho centra-se em identificar o
+                        potencial oculto de propriedades rurais e transformá-las em projetos turísticos sustentáveis,
+                        legalizados e economicamente viáveis — do primeiro diagnóstico à entrega final.
+                    </p>
+                    
+                    <div id="mais-texto-consultor" class="hidden transition-all duration-500 origin-top">
+                        <p class="text-lg text-slate-300 leading-relaxed mb-6">
+                            O que distingue a sua abordagem é a experiência vivida no terreno. Para compreender de forma
+                            profunda o funcionamento real de comunidades sustentáveis, viveu durante quatro meses dentro de
+                            uma ecovillage, participando ativamente na sua dinâmica, organização e desafios do dia a dia.
+                            Não foi uma visita de estudo — foi imersão total. Essa experiência confere-lhe uma visão prática
+                            que nenhum curso ou manual consegue substituir: sabe onde os projetos falham, o que os
+                            investidores não antecipam e o que é necessário para que uma comunidade sustentável funcione de
+                            verdade.
+                        </p>
+                        <p class="text-lg text-slate-300 leading-relaxed mb-6">
+                            A este conhecimento junta-se uma sólida experiência internacional em construção — adquirida ao
+                            longo de anos de trabalho no Canadá e no Reino Unido — que lhe permite acompanhar cada projeto
+                            com rigor técnico desde a análise do terreno até à execução da obra. Domina soluções off-grid,
+                            infraestruturas e sistemas construtivos que são parte integrante de qualquer projeto de
+                            ecoturismo bem executado.
+                        </p>
+                        <p class="text-lg text-slate-300 leading-relaxed mb-10">
+                            Opera em todo o território nacional, com especial enfoque no Algarve e no Alentejo — duas
+                            regiões com condições únicas para o desenvolvimento de ecoturismo de alto valor em Portugal.
+                        </p>
+                        <div class="flex gap-4 items-center p-6 border border-primary/20 bg-primary/5 rounded-lg mb-6">
+                            <span class="material-symbols-outlined text-primary text-4xl">format_quote</span>
+                            <p class="italic text-slate-300">"O nosso trabalho começa onde muitos apenas veem terra:
+                                identificamos potencial e transformamos território em oportunidade."</p>
+                        </div>
+                    </div>
+
+                    <button id="btn-saiba-mais-consultor" onclick="const p = document.getElementById('mais-texto-consultor'); p.classList.toggle('hidden'); this.innerHTML = p.classList.contains('hidden') ? 'Saiba Mais <span class=\'material-symbols-outlined text-base\'>arrow_forward</span>' : 'Ver Menos <span class=\'material-symbols-outlined text-base\'>arrow_upward</span>'"
+                        class="text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 mt-2">
+                        Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Vision, Mission and Values -->
+    <section class="py-24 bg-background-dark relative overflow-hidden border-t border-primary/5" id="visao">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Institucional</span>
+                <h2 class="text-4xl md:text-5xl font-display text-white">Missão, Visão e Valores</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Mission -->
+                <div class="bg-white/[0.03] border border-white/5 p-10 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 group flex flex-col h-full text-left">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6 block group-hover:scale-110 transition-transform">track_changes</span>
+                    <h3 class="text-2xl font-display text-white mb-6">Missão</h3>
+                    <p class="text-slate-400 font-light leading-relaxed flex-grow">
+                        Transformar terrenos rústicos em projetos de ecoturismo viáveis, sustentáveis e rentáveis — acompanhando cada cliente desde a análise do terreno até à entrega do projeto pronto a operar. O nosso trabalho é revelar o potencial oculto da terra portuguesa e traduzi-lo em ativos reais com impacto positivo no território, nas comunidades e no investidor.
+                    </p>
+                </div>
+
+                <!-- Vision -->
+                <div class="bg-white/[0.03] border border-white/5 p-10 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 group flex flex-col h-full text-left">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6 block group-hover:scale-110 transition-transform">visibility</span>
+                    <h3 class="text-2xl font-display text-white mb-6">Visão</h3>
+                    <p class="text-slate-400 font-light leading-relaxed flex-grow">
+                        Acreditamos que Portugal tem todas as condições para se tornar a referência mundial em ecoturismo de qualidade. A nossa visão é contribuir ativamente para esse futuro: transformando intenções em projetos reais, burocracia em licenças aprovadas, e terra crua em legados para as próximas gerações.
+                    </p>
+                </div>
+
+                <!-- Values -->
+                <div class="bg-white/[0.03] border border-white/5 p-10 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 group flex flex-col h-full text-left">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6 block group-hover:scale-110 transition-transform">verified</span>
+                    <h3 class="text-2xl font-display text-white mb-6">Valores</h3>
+                    <div class="space-y-4 flex-grow">
+                        <div>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Autenticidade</span>
+                            <p class="text-slate-400 text-sm font-light">Projetos que respeitam a identidade da terra e cultura local.</p>
+                        </div>
+                        <div>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Rigor Técnico</span>
+                            <p class="text-slate-400 text-sm font-light">Precisão do enquadramento legal à execução da obra.</p>
+                        </div>
+                        <div>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Sustentabilidade Real</span>
+                            <p class="text-slate-400 text-sm font-light">Princípio de trabalho para impacto ambiental mínimo.</p>
+                        </div>
+                        <div>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Transparência</span>
+                            <p class="text-slate-400 text-sm font-light">Cliente informado em cada fase, sem "letra pequena".</p>
+                        </div>
+                        <div>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Impacto Duradouro</span>
+                            <p class="text-slate-400 text-sm font-light">Legado para o investidor, comunidade e território.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 border-t border-primary/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">PARCERIAS
+                ESTRATÉGICAS</span>
+            <h2 class="text-4xl md:text-5xl font-display mb-16">Uma rede de especialistas ao seu serviço</h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-12">
+                <div class="flex flex-col items-center">
+                    <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">architecture</span>
+                    </div>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Arquitetos</h4>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">engineering</span>
+                    </div>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Engenheiros</h4>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">solar_power</span>
+                    </div>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Especialistas Solar</h4>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">foundation</span>
+                    </div>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Infraestruturas</h4>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">payments</span>
+                    </div>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Financiamento</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 relative overflow-hidden" id="contacto">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover opacity-30 transition-opacity duration-700"
+                src="images/algarve_sede.png"
+                alt="Paisagem rústica do Algarve">
+            <div class="absolute inset-0 bg-gradient-to-b from-background-dark via-transparent to-background-dark">
+            </div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-5xl md:text-6xl font-display text-white mb-8">Descubra o potencial do seu terreno</h2>
+            <p class="text-xl text-slate-300 mb-12 font-light">
+                Estamos prontos para transformar a sua visão num projeto viável, sustentável e rentável. Comece hoje a
+                valorizar o seu património rústico.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="analise.html"
+                    class="bg-primary hover:bg-white text-background-dark px-12 py-5 rounded-lg font-bold uppercase tracking-widest transition-all text-lg flex items-center justify-center">
+                    Solicitar análise do terreno
+                </a>
+                <a href="contacto.html"
+                    class="border border-white/30 hover:bg-white/10 text-white px-12 py-5 rounded-lg font-bold uppercase tracking-widest transition-all text-lg flex items-center justify-center">
+                    Entrar em contacto
+                </a>
+            </div>
+        </div>
+    </section>
+    <footer class="py-12 border-t border-white/5 bg-background-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">landscape</span>
+                        <span class="text-2xl font-display font-bold text-white">Base Rústico</span>
+                    </div>
+                    <p class="text-slate-400 max-w-sm mb-6">
+                        Líderes em consultoria para desenvolvimento rural sustentável e ecoturismo em Portugal.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Localização</h4>
+                    <p class="text-slate-400 mb-2">Algarve, Portugal</p>
+                    <p class="text-slate-400">Atendimento Nacional</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Contacto</h4>
+                    <a class="text-slate-400 hover:text-primary transition-colors block mb-2"
+                        href="mailto:richel@baserustico.com">richel@baserustico.com</a>
+                    <a class="text-slate-400 hover:text-primary transition-colors block" href="tel:+351933141651">+351
+                        933 141 651</a>
+                </div>
+            </div>
+            <div
+                class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-slate-500 text-sm">
+                <p>© 2024 Base Rústico. Todos os direitos reservados.</p>
+                <div class="flex flex-wrap gap-x-8 gap-y-2 mt-4 md:mt-0 justify-center md:justify-end">
+                    <a class="hover:text-primary transition-colors" href="#visao">A Nossa Visão</a>
+                    <a class="hover:text-primary transition-colors" href="#projetos">Portfólio de Projetos</a>
+                    <a class="hover:text-primary transition-colors" href="privacidade.html">Privacidade</a>
+                    <a class="hover:text-primary transition-colors" href="termos.html">Termos e Condições</a>
+                    <a class="hover:text-primary transition-colors" href="termos.html">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" role="dialog" aria-label="Aviso de cookies">
+        <div class="cookie-left">
+            <div class="cookie-logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 19h20L12 2zm0 4l7 13H5l7-13z"></path>
+                </svg>
+                <span>Base Rústico</span>
+            </div>
+            <div class="cookie-divider"></div>
+            <p class="cookie-text">
+                Utilizamos cookies essenciais para o funcionamento do website e cookies analíticos para melhorar a sua experiência. Consulte a nossa <a onclick="window.location.href='termos.html'">Política de Cookies</a> e <a onclick="window.location.href='privacidade.html'">Política de Privacidade</a>.
+            </p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="btn-rejeitar" onclick="rejeitarCookies()">Só Essenciais</button>
+            <button class="btn-aceitar" onclick="aceitarCookies()">Aceitar Tudo</button>
+        </div>
+    </div>
+    <div id="cookie-toast"></div>
+
+    <script>
+        const COOKIE_KEY = 'baserustico_cookies';
+        const banner = document.getElementById('cookie-banner');
+        const toast = document.getElementById('cookie-toast');
+
+        function mostrarToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function esconderBanner() {
+            banner.classList.remove('visible');
+        }
+
+        function aceitarCookies() {
+            localStorage.setItem(COOKIE_KEY, 'aceito');
+            esconderBanner();
+            mostrarToast('Preferências guardadas — obrigado!');
+        }
+
+        function rejeitarCookies() {
+            localStorage.setItem(COOKIE_KEY, 'essenciais');
+            esconderBanner();
+            mostrarToast('Apenas cookies essenciais ativados.');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const preferencia = localStorage.getItem(COOKIE_KEY);
+            if (!preferencia) {
+                setTimeout(() => banner.classList.add('visible'), 800);
+            }
+        });
+    </script>
+
+    <!-- WhatsApp Popup -->
+    <div id="popup-overlay" role="dialog" aria-modal="true">
+        <div id="popup-box">
+            <button id="popup-close" onclick="fecharPopup()" aria-label="Fechar">&#215;</button>
+
+            <svg class="popup-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+
+            <p class="popup-pretitle">Base Rústico</p>
+            <h2 class="popup-title">Precisa encontrar um<br><span>terreno em Portugal?</span></h2>
+            <p class="popup-text">Ajudamos proprietários e investidores a identificar, analisar e desenvolver terrenos rústicos com potencial de ecoturismo em todo o território nacional.</p>
+
+            <a class="popup-btn"
+            href="https://wa.me/447598807153?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20terrenos%20r%C3%BAsticos%20em%20Portugal."
+            target="_blank"
+            rel="noopener"
+            onclick="fecharPopup()">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.526 5.845L.057 23.273a.75.75 0 00.92.92l5.428-1.469A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.693-.505-5.23-1.385l-.372-.215-3.862 1.046 1.046-3.862-.215-.372A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                </svg>
+                Falar no WhatsApp
+            </a>
+
+            <button class="popup-skip" onclick="fecharPopup()">Agora não, obrigado</button>
+        </div>
+    </div>
+
+    <script>
+        const POPUP_KEY = 'baserustico_popup';
+
+        function fecharPopup() {
+            document.getElementById('popup-overlay').classList.remove('visible');
+            sessionStorage.setItem(POPUP_KEY, 'visto');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') fecharPopup();
+        });
+
+        document.getElementById('popup-overlay').addEventListener('click', function(e) {
+            if (e.target === this) fecharPopup();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const jaVisto = sessionStorage.getItem(POPUP_KEY);
+            if (!jaVisto) {
+                setTimeout(() => {
+                    document.getElementById('popup-overlay').classList.add('visible');
+                }, 12000);
+            }
+        });
+    </script>
+</body>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/447598807153?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20análise%20de%20terrenos%20da%20Base%20Rústico"
+    target="_blank" rel="noopener noreferrer"
+    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 hover:shadow-2xl transition-all duration-300 group">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <path
+            d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.066.376-.043c.101-.109.433-.504.549-.679s.231-.144.39-.086c.159.058 1.006.474 1.179.563.173.089.289.133.332.202.043.069.043.396-.101.801z" />
+    </svg>
+    <span
+        class="absolute right-16 px-4 py-2 bg-background-dark/90 text-white text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none backdrop-blur-md">
+        Fale com um consultor
+    </span>
+</a>
+
+</html>

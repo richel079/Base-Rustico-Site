@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-PT">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Política de Privacidade - Base Rústico</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+        extend: {
+            colors: {
+                "primary": "#c8a96a",
+                "background-light": "#f8f7f6",
+                "background-dark": "#0F0F10",
+            },
+            fontFamily: {
+                "display": ["Noto Serif", "serif"],
+                "sans": ["Noto Sans", "sans-serif"]
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+        },
+    },
+}
+</script>
+<style>
+body { font-family: 'Noto Sans', sans-serif; }
+h1,        .font-serif {
+            font-family: 'Noto Serif', serif;
+        }
+        
+        /* Cookie Banner Styles */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a1b;
+            border-top: 1px solid rgba(200, 169, 106, 0.3);
+            padding: 20px 40px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        #cookie-banner.visible { transform: translateY(0); }
+        .cookie-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 280px; }
+        .cookie-logo { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .cookie-logo svg { width: 24px; height: 24px; fill: #c8a96a; }
+        .cookie-logo span { font-size: 14px; font-weight: bold; color: #c8a96a; letter-spacing: 0.05em; white-space: nowrap; }
+        .cookie-divider { width: 1px; height: 36px; background: rgba(200, 169, 106, 0.2); flex-shrink: 0; }
+        .cookie-text { font-size: 13px; color: #a0a0a0; line-height: 1.5; }
+        .cookie-text a { color: #c8a96a; text-decoration: underline; cursor: pointer; }
+        .cookie-text a:hover { color: #e0c07a; }
+        .cookie-buttons { display: flex; gap: 12px; flex-shrink: 0; align-items: center; }
+        .btn-rejeitar { background: transparent; border: 1px solid rgba(200, 169, 106, 0.4); color: #a0a0a0; padding: 10px 24px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s ease; white-space: nowrap; }
+        .btn-rejeitar:hover { border-color: #c8a96a; color: #c8a96a; }
+        .btn-aceitar { background: #c8a96a; border: 1px solid #c8a96a; color: #0F0F10; padding: 10px 24px; font-size: 12px; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s ease; white-space: nowrap; }
+        .btn-aceitar:hover { background: #e0c07a; border-color: #e0c07a; }
+        #cookie-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1a1b; border: 1px solid rgba(200, 169, 106, 0.3); color: #c8a96a; padding: 12px 24px; border-radius: 4px; font-size: 13px; z-index: 9998; opacity: 0; transition: all 0.3s ease; white-space: nowrap; }
+        #cookie-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        @media (max-width: 640px) {
+            #cookie-banner { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+            .cookie-left { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .cookie-divider { display: none; }
+            .cookie-buttons { width: 100%; }
+            .btn-rejeitar, .btn-aceitar { flex: 1; text-align: center; }
+        }
+
+        /* Popup Styles */
+        #popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 20px;
+        }
+        #popup-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #popup-box {
+            background: #1a1a1b;
+            border: 1px solid rgba(200, 169, 106, 0.3);
+            border-radius: 8px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        #popup-overlay.visible #popup-box {
+            transform: translateY(0);
+        }
+        #popup-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            font-size: 22px;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        #popup-close:hover { color: #c8a96a; }
+        .popup-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 20px;
+            fill: #c8a96a;
+        }
+        .popup-pretitle {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #c8a96a;
+            margin-bottom: 12px;
+            font-family: sans-serif;
+        }
+        .popup-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            font-family: 'Noto Serif', Georgia, serif;
+        }
+        .popup-title span { color: #c8a96a; font-style: italic; }
+        .popup-text {
+            font-size: 14px;
+            color: #a0a0a0;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            font-family: sans-serif;
+        }
+        .popup-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #c8a96a;
+            color: #0F0F10;
+            border: none;
+            padding: 14px 32px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        .popup-btn:hover { background: #e0c07a; }
+        .popup-btn svg { width: 18px; height: 18px; fill: #0F0F10; flex-shrink: 0; }
+        .popup-skip {
+            display: block;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #666;
+            cursor: pointer;
+            font-family: sans-serif;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            width: 100%;
+        }
+        .popup-skip:hover { color: #a0a0a0; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased flex flex-col min-h-screen">
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 border-b border-primary/10 bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<a href="index.html" class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">landscape</span>
+<span class="text-xl font-display font-bold tracking-tight text-white">Base Rústico</span>
+</a>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="index.html#servicos">Serviços</a>
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="index.html#projetos">Projetos</a>
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="index.html#sobre">Sobre</a>
+<a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest" href="index.html#contacto">Contacto</a>
+</div>
+<div class="flex items-center gap-6">
+<a href="index.html" class="flex items-center gap-2 text-primary hover:text-white transition-colors font-bold text-xs uppercase tracking-widest group">
+<span class="material-symbols-outlined text-lg group-hover:-translate-x-1 transition-transform">arrow_back</span>
+Voltar ao Início
+</a>
+<a href="analise.html" class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded text-sm font-bold uppercase tracking-wider transition-all">
+ Analisar Terreno
+</a>
+</div>
+</div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-grow py-24 bg-background-dark">
+<div class="max-w-4xl mx-auto px-6">
+<span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Informação Legal</span>
+<h1 class="text-4xl md:text-5xl font-display mb-2 text-white">Política de Privacidade</h1>
+<p class="text-slate-500 font-medium uppercase tracking-widest text-xs mb-12">Base Rústico — Consultoria em Ecoturismo e Terrenos Rústicos | Última atualização: março de 2026</p>
+
+<div class="text-slate-300 font-light leading-relaxed space-y-6">
+    <h2 class="text-2xl font-display pt-6 pb-2 text-primary border-b border-primary/20">1. Identificação do Responsável pelo Tratamento</h2>
+    <p>A <strong class="text-white">Base Rústico</strong> é uma consultoria especializada no desenvolvimento de projetos de ecoturismo e rentabilização de terrenos rústicos em Portugal, com sede no Algarve, Portugal.</p>
+    <p><strong class="text-white">Contacto do responsável:</strong> richel@baserustico.com | +351 933 141 651</p>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">2. Que Dados Recolhemos</h2>
+    <p>No âmbito da utilização do website baserustico.com e do contacto connosco, podemos recolher os seguintes dados pessoais:</p>
+    <ul class="list-disc pl-6 space-y-3">
+        <li>Nome completo</li>
+        <li>Endereço de email</li>
+        <li>Número de telefone</li>
+        <li>Localização aproximada do terreno (quando fornecida voluntariamente)</li>
+        <li>Mensagens e comunicações enviadas através dos formulários de contacto ou WhatsApp</li>
+        <li>Dados de navegação (endereço IP, tipo de browser, páginas visitadas, tempo de permanência)</li>
+    </ul>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">3. Para que Utilizamos os Seus Dados</h2>
+    <p>Os dados recolhidos são utilizados exclusivamente para:</p>
+    <ul class="list-disc pl-6 space-y-3">
+        <li>Responder a pedidos de informação e análise de terrenos</li>
+        <li>Enviar propostas e documentação relacionada com os nossos serviços</li>
+        <li>Comunicar sobre projetos em curso</li>
+        <li>Melhorar a experiência de utilização do website</li>
+        <li>Cumprimento de obrigações legais</li>
+    </ul>
+    <p class="italic">Não utilizamos os seus dados para fins de marketing sem o seu consentimento expresso.</p>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">4. Base Legal para o Tratamento</h2>
+    <p>O tratamento dos seus dados pessoais é realizado com base nas seguintes bases legais, nos termos do Regulamento Geral sobre a Proteção de Dados (RGPD — Regulamento UE 2016/679):</p>
+    <ul class="list-disc pl-6 space-y-3">
+        <li><strong class="text-white">Consentimento</strong> — quando preenche um formulário de contacto ou nos envia uma mensagem direta</li>
+        <li><strong class="text-white">Execução de contrato</strong> — quando o tratamento é necessário para a prestação dos nossos serviços</li>
+        <li><strong class="text-white">Interesses legítimos</strong> — para melhoria dos nossos serviços e segurança do website</li>
+        <li><strong class="text-white">Cumprimento de obrigação legal</strong> — quando exigido por lei</li>
+    </ul>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">5. Partilha de Dados com Terceiros</h2>
+    <p>A Base Rústico não vende, aluga nem partilha os seus dados pessoais com terceiros para fins comerciais. Os seus dados podem ser partilhados exclusivamente com:</p>
+    <ul class="list-disc pl-6 space-y-3">
+        <li><strong class="text-white">Parceiros diretos</strong> envolvidos na prestação do serviço contratado (arquitetos, engenheiros, intermediários de crédito) — apenas com o seu conhecimento e para fins específicos do projeto</li>
+        <li><strong class="text-white">Prestadores de serviços tecnológicos</strong> necessários ao funcionamento do website (alojamento, email)</li>
+        <li><strong class="text-white">Autoridades competentes</strong>, quando legalmente obrigados</li>
+    </ul>
+    <p>Todos os parceiros estão sujeitos a obrigações de confidencialidade e conformidade com o RGPD.</p>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">6. Conservação dos Dados</h2>
+    <p>Os seus dados pessoais são conservados apenas pelo tempo necessário para os fins para os quais foram recolhidos:</p>
+    <ul class="list-disc pl-6 space-y-3">
+        <li><strong class="text-white">Dados de contacto e comunicações:</strong> 3 anos após o último contacto</li>
+        <li><strong class="text-white">Dados de projetos em curso:</strong> durante a vigência da relação contratual e 5 anos após o seu término</li>
+        <li><strong class="text-white">Dados de navegação:</strong> 12 meses</li>
+    </ul>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">7. Os Seus Direitos</h2>
+    <p>Ao abrigo do RGPD, tem os seguintes direitos relativamente aos seus dados pessoais:</p>
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 list-none pl-0">
+        <li class="bg-white/5 p-4 rounded-lg border border-white/10"><strong class="text-primary block mb-1">Acesso</strong> Solicitar uma cópia dos dados que temos sobre si</li>
+        <li class="bg-white/5 p-4 rounded-lg border border-white/10"><strong class="text-primary block mb-1">Retificação</strong> Corrigir dados incorretos ou incompletos</li>
+        <li class="bg-white/5 p-4 rounded-lg border border-white/10"><strong class="text-primary block mb-1">Apagamento</strong> Solicitar a eliminação dos seus dados</li>
+        <li class="bg-white/5 p-4 rounded-lg border border-white/10"><strong class="text-primary block mb-1">Limitação</strong> Restringir a forma como utilizamos os seus dados</li>
+        <li class="bg-white/5 p-4 rounded-lg border border-white/10"><strong class="text-primary block mb-1">Portabilidade</strong> Receber os seus dados num formato estruturado</li>
+        <li class="bg-white/5 p-4 rounded-lg border border-white/10"><strong class="text-primary block mb-1">Oposição</strong> Opor-se ao tratamento dos seus dados</li>
+    </ul>
+    <p>Para exercer qualquer um destes direitos, contacte-nos através de <a href="mailto:richel@baserustico.com" class="text-primary hover:underline">richel@baserustico.com</a>. Respondemos no prazo máximo de 30 dias.</p>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">8. Cookies e Tecnologias de Rastreio</h2>
+    <p>O website baserustico.com pode utilizar cookies para melhorar a experiência de navegação:</p>
+    <ul class="list-disc pl-6 space-y-3">
+        <li><strong class="text-white">Cookies essenciais</strong> — necessários para o funcionamento básico</li>
+        <li><strong class="text-white">Cookies analíticos</strong> — utilizados para compreender o uso do website</li>
+    </ul>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">9. Segurança dos Dados</h2>
+    <p>Adotamos medidas técnicas e organizativas adequadas para proteger os seus dados pessoais, incluindo transmissão através de protocolo HTTPS e acesso restrito.</p>
+
+    <h2 class="text-2xl font-display pt-8 pb-2 text-primary border-b border-primary/20">11. Reclamações</h2>
+    <p>Se considerar que o tratamento dos seus dados viola o RGPD, tem o direito de apresentar reclamação à autoridade de controlo competente em Portugal: <strong class="text-white">Comissão Nacional de Proteção de Dados (CNPD)</strong>.</p>
+</div>
+</div>
+</main>
+
+<!-- Footer -->
+<footer class="py-12 border-t border-white/5 bg-background-dark">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">landscape</span>
+<span class="text-2xl font-display font-bold text-white">Base Rústico</span>
+</div>
+<p class="text-slate-400 max-w-sm mb-6">
+Líderes em consultoria para desenvolvimento rural sustentável e ecoturismo em Portugal.
+</p>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Localização</h4>
+<p class="text-slate-400 mb-2">Algarve, Portugal</p>
+<p class="text-slate-400">Atendimento Nacional</p>
+</div>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Contacto</h4>
+                    <a class="text-slate-400 hover:text-primary transition-colors block mb-2"
+                        href="mailto:richel@baserustico.com">richel@baserustico.com</a>
+                    <a class="text-slate-400 hover:text-primary transition-colors block" href="tel:+351933141651">+351
+                        933 141 651</a>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-slate-500 text-sm">
+<p>© 2024 Base Rústico. Todos os direitos reservados.</p>
+                <div class="flex flex-wrap gap-x-8 gap-y-2 mt-4 md:mt-0 justify-center md:justify-end">
+                    <a class="hover:text-primary transition-colors" href="index.html#visao">A Nossa Visão</a>
+                    <a class="hover:text-primary transition-colors" href="index.html#projetos">Portfólio de Projetos</a>
+                    <a class="hover:text-primary transition-colors" href="privacidade.html">Privacidade</a>
+                    <a class="hover:text-primary transition-colors" href="termos.html">Termos e Condições</a>
+                    <a class="hover:text-primary transition-colors" href="termos.html">Cookies</a>
+                </div>
+</div>
+</div>
+</footer>
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" role="dialog" aria-label="Aviso de cookies">
+        <div class="cookie-left">
+            <div class="cookie-logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 19h20L12 2zm0 4l7 13H5l7-13z"></path>
+                </svg>
+                <span>Base Rústico</span>
+            </div>
+            <div class="cookie-divider"></div>
+            <p class="cookie-text">
+                Utilizamos cookies essenciais para o funcionamento do website e cookies analíticos para melhorar a sua experiência. Consulte a nossa <a onclick="window.location.href='termos.html'">Política de Cookies</a> e <a onclick="window.location.href='privacidade.html'">Política de Privacidade</a>.
+            </p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="btn-rejeitar" onclick="rejeitarCookies()">Só Essenciais</button>
+            <button class="btn-aceitar" onclick="aceitarCookies()">Aceitar Tudo</button>
+        </div>
+    </div>
+    <div id="cookie-toast"></div>
+
+    <script>
+        const COOKIE_KEY = 'baserustico_cookies';
+        const banner = document.getElementById('cookie-banner');
+        const toast = document.getElementById('cookie-toast');
+
+        function mostrarToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function esconderBanner() {
+            banner.classList.remove('visible');
+        }
+
+        function aceitarCookies() {
+            localStorage.setItem(COOKIE_KEY, 'aceito');
+            esconderBanner();
+            mostrarToast('Preferências guardadas — obrigado!');
+        }
+
+        function rejeitarCookies() {
+            localStorage.setItem(COOKIE_KEY, 'essenciais');
+            esconderBanner();
+            mostrarToast('Apenas cookies essenciais ativados.');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const preferencia = localStorage.getItem(COOKIE_KEY);
+            if (!preferencia) {
+                setTimeout(() => banner.classList.add('visible'), 800);
+            }
+        });
+    </script>
+
+    <!-- WhatsApp Popup -->
+    <div id="popup-overlay" role="dialog" aria-modal="true">
+        <div id="popup-box">
+            <button id="popup-close" onclick="fecharPopup()" aria-label="Fechar">&#215;</button>
+
+            <svg class="popup-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+
+            <p class="popup-pretitle">Base Rústico</p>
+            <h2 class="popup-title">Precisa encontrar um<br><span>terreno em Portugal?</span></h2>
+            <p class="popup-text">Ajudamos proprietários e investidores a identificar, analisar e desenvolver terrenos rústicos com potencial de ecoturismo em todo o território nacional.</p>
+
+            <a class="popup-btn"
+            href="https://wa.me/447598807153?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20terrenos%20r%C3%BAsticos%20em%20Portugal."
+            target="_blank"
+            rel="noopener"
+            onclick="fecharPopup()">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.526 5.845L.057 23.273a.75.75 0 00.92.92l5.428-1.469A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.693-.505-5.23-1.385l-.372-.215-3.862 1.046 1.046-3.862-.215-.372A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+                </svg>
+                Falar no WhatsApp
+            </a>
+
+            <button class="popup-skip" onclick="fecharPopup()">Agora não, obrigado</button>
+        </div>
+    </div>
+
+    <script>
+        const POPUP_KEY = 'baserustico_popup';
+
+        function fecharPopup() {
+            document.getElementById('popup-overlay').classList.remove('visible');
+            sessionStorage.setItem(POPUP_KEY, 'visto');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') fecharPopup();
+        });
+
+        document.getElementById('popup-overlay').addEventListener('click', function(e) {
+            if (e.target === this) fecharPopup();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const jaVisto = sessionStorage.getItem(POPUP_KEY);
+            if (!jaVisto) {
+                setTimeout(() => {
+                    document.getElementById('popup-overlay').classList.add('visible');
+                }, 12000);
+            }
+        });
+    </script>
+</body>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/447598807153?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20a%20análise%20de%20terrenos%20da%20Base%20Rústico"
+    target="_blank" rel="noopener noreferrer"
+    class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg hover:scale-110 hover:shadow-2xl transition-all duration-300 group">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <path
+            d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.066.376-.043c.101-.109.433-.504.549-.679s.231-.144.39-.086c.159.058 1.006.474 1.179.563.173.089.289.133.332.202.043.069.043.396-.101.801z" />
+    </svg>
+    <span
+        class="absolute right-16 px-4 py-2 bg-background-dark/90 text-white text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none backdrop-blur-md">
+        Fale com um consultor
+    </span>
+</a>
+
+</html>
