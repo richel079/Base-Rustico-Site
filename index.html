@@ -203,6 +203,121 @@
             width: 100%;
         }
         .popup-skip:hover { color: #a0a0a0; }
+
+        /* Mobile Menu */
+        #mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 9000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        #mobile-menu-overlay.open { opacity: 1; visibility: visible; }
+        #mobile-menu-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: min(320px, 85vw);
+            background: #111112;
+            border-left: 1px solid rgba(200, 169, 106, 0.2);
+            z-index: 9001;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+        #mobile-menu-drawer.open { transform: translateX(0); }
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(200, 169, 106, 0.1);
+        }
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+        .mobile-menu-close:hover { color: #c8a96a; }
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            padding: 32px 24px;
+            gap: 4px;
+            flex: 1;
+        }
+        .mobile-menu-links a {
+            color: #cbd5e1;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mobile-menu-links a:hover { color: #c8a96a; }
+        .mobile-menu-links a .material-symbols-outlined { font-size: 18px; color: #c8a96a; opacity: 0.7; }
+        .mobile-menu-cta {
+            padding: 24px;
+            border-top: 1px solid rgba(200, 169, 106, 0.1);
+        }
+        .mobile-menu-cta a {
+            display: block;
+            background: #c8a96a;
+            color: #0F0F10;
+            text-align: center;
+            padding: 14px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .mobile-menu-cta a:hover { background: #e0c07a; }
+
+        /* Typology card badges & hover */
+        .tipologia-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(200, 169, 106, 0.15);
+            border: 1px solid rgba(200, 169, 106, 0.5);
+            color: #c8a96a;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            padding: 4px 12px;
+            border-radius: 2px;
+            backdrop-filter: blur(8px);
+            z-index: 2;
+        }
+        .tipologia-card {
+            border: 1px solid transparent;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .tipologia-card:hover {
+            border-color: rgba(200, 169, 106, 0.4);
+            box-shadow: 0 0 30px rgba(200, 169, 106, 0.1);
+        }
     </style>
 </head>
 
@@ -214,6 +329,7 @@
                 <span class="material-symbols-outlined text-primary text-3xl">landscape</span>
                 <span class="text-xl font-display font-bold tracking-tight text-white">Base Rústico</span>
             </a>
+            <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center gap-10">
                 <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
                     href="#servicos">Serviços</a>
@@ -226,12 +342,69 @@
                 <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
                     href="contacto.html">Contacto</a>
             </div>
+            <!-- Desktop CTA -->
             <a href="analise.html"
-                class="bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded text-sm font-bold uppercase tracking-wider transition-all">
+                class="hidden md:inline-flex bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded text-sm font-bold uppercase tracking-wider transition-all">
                 Analisar Terreno
             </a>
+            <!-- Mobile: Hamburger Button -->
+            <button id="mobile-menu-btn" onclick="abrirMenuMobile()"
+                class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] focus:outline-none"
+                aria-label="Abrir menu">
+                <span class="block w-6 h-0.5 bg-white transition-all"></span>
+                <span class="block w-6 h-0.5 bg-white transition-all"></span>
+                <span class="block w-6 h-0.5 bg-primary transition-all"></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" onclick="fecharMenuMobile()"></div>
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+        <div class="mobile-menu-header">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-2xl">landscape</span>
+                <span class="font-display font-bold text-white">Base Rústico</span>
+            </div>
+            <button class="mobile-menu-close" onclick="fecharMenuMobile()" aria-label="Fechar menu">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
+        <nav class="mobile-menu-links">
+            <a href="#servicos" onclick="fecharMenuMobile()">
+                <span class="material-symbols-outlined">analytics</span>Serviços
+            </a>
+            <a href="#projetos" onclick="fecharMenuMobile()">
+                <span class="material-symbols-outlined">eco</span>Projetos
+            </a>
+            <a href="#sobre" onclick="fecharMenuMobile()">
+                <span class="material-symbols-outlined">person</span>Sobre
+            </a>
+            <a href="#visao" onclick="fecharMenuMobile()">
+                <span class="material-symbols-outlined">visibility</span>Visão
+            </a>
+            <a href="contacto.html" onclick="fecharMenuMobile()">
+                <span class="material-symbols-outlined">mail</span>Contacto
+            </a>
+        </nav>
+        <div class="mobile-menu-cta">
+            <a href="analise.html">Analisar Terreno</a>
+        </div>
+    </div>
+    <script>
+        function abrirMenuMobile() {
+            document.getElementById('mobile-menu-overlay').classList.add('open');
+            document.getElementById('mobile-menu-drawer').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function fecharMenuMobile() {
+            document.getElementById('mobile-menu-overlay').classList.remove('open');
+            document.getElementById('mobile-menu-drawer').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fecharMenuMobile(); });
+    </script>
     <!-- Hero Section -->
     <section class="relative h-[90vh] flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
@@ -519,115 +692,111 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Card 1 -->
-                <div class="relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
+                <!-- Card 1: Caravanismo -->
+                <div class="tipologia-card relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
                     onclick="document.getElementById('modal-1').showModal()">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCFC1kf8lULBq7-q8cmqZxaZHx4AsRYwpgt2O_j5LEwiHSpSGlQpRNkxXNRwuPGHsxhjaVxpmW7T8EScNzAx85KXR9D9EWz0nnoFfBIHwSEXsy25SVHUrSZ78MNHu2Cnz6BZGgZMlNfLuhd8nwy2T_gxXMWEMbpPlTVaQdvX-aTJ5JghBG3RghYOSVGZ0LLx6NywN9wjkXAPy9TjElRrv4WZI3QWUkgPXMoHDE-EwQ0pKNtIaFNE9Kefsu0LkMtc4Xbih3mPIHEhnp"
+                    <img src="https://drive.google.com/thumbnail?id=1i5v4uMUBXGi-BJA8wJfILOob4VytLfE2&sz=w1000"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        alt="Parque Caravanas" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-background-dark/95 via-background-dark/40 to-transparent">
-                    </div>
+                        alt="Parque de Caravanismo Premium" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <span class="tipologia-badge">Caravanismo</span>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2">Parque de Caravanismo Premium</h3>
-                        <p class="text-slate-300 font-light mb-6">Infraestrutura que trabalha por si, 365 dias por ano.
-                        </p>
-                        <button
-                            class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">Saiba
-                            Mais <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Parque de Caravanismo Premium</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Infraestrutura que trabalha por si, 365 dias por ano.</p>
+                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
+                            Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
+                <!-- Card 2: Ecovillage -->
+                <div class="tipologia-card relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
                     onclick="document.getElementById('modal-2').showModal()">
-                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1000"
+                    <img src="https://drive.google.com/thumbnail?id=1WLRW3NKoWVN7fh1YdF9Ixg36gx1qLkGz&sz=w1000"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         alt="Ecovillage" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-background-dark/95 via-background-dark/40 to-transparent">
-                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <span class="tipologia-badge">Ecovillage</span>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2">Ecovillage / Comunidade Intencional</h3>
-                        <p class="text-slate-300 font-light mb-6">Um modelo de vida que também gera rendimento.</p>
-                        <button
-                            class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">Saiba
-                            Mais <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Ecovillage / Comunidade Intencional</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Um modelo de vida que também gera rendimento.</p>
+                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
+                            Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
+                <!-- Card 3: Retiro -->
+                <div class="tipologia-card relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
                     onclick="document.getElementById('modal-3').showModal()">
-                    <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000"
+                    <img src="https://drive.google.com/thumbnail?id=1890IKNBZ11OsatFWcTK9tg17zN9PZt9l&sz=w1000"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        alt="Retiro" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-background-dark/95 via-background-dark/40 to-transparent">
-                    </div>
+                        alt="Retiro de Imersão" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <span class="tipologia-badge">Retiro</span>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2">Retiro de Imersão</h3>
-                        <p class="text-slate-300 font-light mb-6">Silêncio, programa e transformação — para quem quer
-                            mais do que uma simples viagem.</p>
-                        <button
-                            class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">Saiba
-                            Mais <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Retiro de Imersão</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Silêncio, programa e transformação — para quem quer mais do que uma simples viagem.</p>
+                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
+                            Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Card 4 -->
-                <div class="relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
+                <!-- Card 4: Turismo Rural -->
+                <div class="tipologia-card relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
                     onclick="document.getElementById('modal-4').showModal()">
-                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1000"
+                    <img src="https://drive.google.com/thumbnail?id=1yvHpu5hAG_UmVFBr96qYsvVqVaL9bOYG&sz=w1000"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        alt="Turismo Rural" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-background-dark/95 via-background-dark/40 to-transparent">
-                    </div>
+                        alt="Turismo Rural Produtivo" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <span class="tipologia-badge">Turismo Rural</span>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2">Turismo Rural Produtivo</h3>
-                        <p class="text-slate-300 font-light mb-6">A terra em funcionamento é o produto.</p>
-                        <button
-                            class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">Saiba
-                            Mais <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Turismo Rural Produtivo</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">A terra em funcionamento é o produto.</p>
+                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
+                            Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Card 5 -->
-                <div class="relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
+                <!-- Card 5: Eco Resort -->
+                <div class="tipologia-card relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
                     onclick="document.getElementById('modal-5').showModal()">
                     <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=1000"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        alt="Eco Resort" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-background-dark/95 via-background-dark/40 to-transparent">
-                    </div>
+                        alt="Eco Resort de Natureza" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <span class="tipologia-badge">Eco Resort</span>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2">Eco Resort de Natureza</h3>
-                        <p class="text-slate-300 font-light mb-6">Hospitalidade de alto nível com pegada ecológica real.
-                        </p>
-                        <button
-                            class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">Saiba
-                            Mais <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Eco Resort de Natureza</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Hospitalidade de alto nível com pegada ecológica real.</p>
+                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
+                            Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Card 6 -->
-                <div class="relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
+                <!-- Card 6: Modular -->
+                <div class="tipologia-card relative rounded-xl overflow-hidden group w-full aspect-video shadow-lg cursor-pointer"
                     onclick="document.getElementById('modal-6').showModal()">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjgGetKe9mGGojL66BTh-rAexJTn-bLHhMzerPR84_YyurrVjn8D_pzoio9vCAOwK1EbL5F4VsynB62n3Gjn2EWKqnoRzagdKQYr1eZOKzZ6jM5T0x8V31VNMWqAGuaNxN0J76jUsA5ZFivAD3j4RmXAy4j_sW9bGXDumMv3-hWy2JxlYDYClkKUY2-9PadXJpnhKfFd88Ku5x8Pyzvjr9BRHYd6X14JXnD-WIa49XCAvMb0tjhtZs1DF-h_jJjeIjVT3no8N4jpWa"
+                    <img src="https://drive.google.com/thumbnail?id=189H-A23phHpi710V9FVL26F0WF1M2kRt&sz=w1000"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        alt="Alojamento Modular" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-background-dark/95 via-background-dark/40 to-transparent">
-                    </div>
+                        alt="Alojamento Modular de Natureza" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <span class="tipologia-badge">Modular</span>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2">Alojamento Modular de Natureza</h3>
-                        <p class="text-slate-300 font-light mb-6">Construção rápida, impacto mínimo, rentabilidade
-                            imediata.</p>
-                        <button
-                            class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">Saiba
-                            Mais <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Alojamento Modular de Natureza</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Construção rápida, impacto mínimo, rentabilidade imediata.</p>
+                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
+                            Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -638,7 +807,7 @@
                 class="backdrop:bg-black/90 bg-background-dark p-0 rounded-2xl w-[95vw] max-w-4xl shadow-2xl m-auto border border-white/10 overflow-hidden">
                 <div class="flex flex-col w-full max-h-[90vh]">
                     <div class="relative w-full h-48 md:h-80 shrink-0">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCFC1kf8lULBq7-q8cmqZxaZHx4AsRYwpgt2O_j5LEwiHSpSGlQpRNkxXNRwuPGHsxhjaVxpmW7T8EScNzAx85KXR9D9EWz0nnoFfBIHwSEXsy25SVHUrSZ78MNHu2Cnz6BZGgZMlNfLuhd8nwy2T_gxXMWEMbpPlTVaQdvX-aTJ5JghBG3RghYOSVGZ0LLx6NywN9wjkXAPy9TjElRrv4WZI3QWUkgPXMoHDE-EwQ0pKNtIaFNE9Kefsu0LkMtc4Xbih3mPIHEhnp"
+                        <img src="https://drive.google.com/thumbnail?id=1i5v4uMUBXGi-BJA8wJfILOob4VytLfE2&sz=w1000"
                             class="w-full h-full object-cover" />
                         <form method="dialog">
                             <button
@@ -680,7 +849,7 @@
                 class="backdrop:bg-black/90 bg-background-dark p-0 rounded-2xl w-[95vw] max-w-4xl shadow-2xl m-auto border border-white/10 overflow-hidden">
                 <div class="flex flex-col w-full max-h-[90vh]">
                     <div class="relative w-full h-48 md:h-80 shrink-0">
-                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1000"
+                        <img src="https://drive.google.com/thumbnail?id=1WLRW3NKoWVN7fh1YdF9Ixg36gx1qLkGz&sz=w1000"
                             class="w-full h-full object-cover" />
                         <form method="dialog">
                             <button
@@ -722,7 +891,7 @@
                 class="backdrop:bg-black/90 bg-background-dark p-0 rounded-2xl w-[95vw] max-w-4xl shadow-2xl m-auto border border-white/10 overflow-hidden">
                 <div class="flex flex-col w-full max-h-[90vh]">
                     <div class="relative w-full h-48 md:h-80 shrink-0">
-                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000"
+                        <img src="https://drive.google.com/thumbnail?id=1890IKNBZ11OsatFWcTK9tg17zN9PZt9l&sz=w1000"
                             class="w-full h-full object-cover" />
                         <form method="dialog">
                             <button
@@ -765,7 +934,7 @@
                 class="backdrop:bg-black/90 bg-background-dark p-0 rounded-2xl w-[95vw] max-w-4xl shadow-2xl m-auto border border-white/10 overflow-hidden">
                 <div class="flex flex-col w-full max-h-[90vh]">
                     <div class="relative w-full h-48 md:h-80 shrink-0">
-                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1000"
+                        <img src="https://drive.google.com/thumbnail?id=1yvHpu5hAG_UmVFBr96qYsvVqVaL9bOYG&sz=w1000"
                             class="w-full h-full object-cover" />
                         <form method="dialog">
                             <button
@@ -850,7 +1019,7 @@
                 class="backdrop:bg-black/90 bg-background-dark p-0 rounded-2xl w-[95vw] max-w-4xl shadow-2xl m-auto border border-white/10 overflow-hidden">
                 <div class="flex flex-col w-full max-h-[90vh]">
                     <div class="relative w-full h-48 md:h-80 shrink-0">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjgGetKe9mGGojL66BTh-rAexJTn-bLHhMzerPR84_YyurrVjn8D_pzoio9vCAOwK1EbL5F4VsynB62n3Gjn2EWKqnoRzagdKQYr1eZOKzZ6jM5T0x8V31VNMWqAGuaNxN0J76jUsA5ZFivAD3j4RmXAy4j_sW9bGXDumMv3-hWy2JxlYDYClkKUY2-9PadXJpnhKfFd88Ku5x8Pyzvjr9BRHYd6X14JXnD-WIa49XCAvMb0tjhtZs1DF-h_jJjeIjVT3no8N4jpWa"
+                        <img src="https://drive.google.com/thumbnail?id=189H-A23phHpi710V9FVL26F0WF1M2kRt&sz=w1000"
                             class="w-full h-full object-cover" />
                         <form method="dialog">
                             <button
