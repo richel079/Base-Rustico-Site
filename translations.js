@@ -1,6 +1,7 @@
 const translations = {
     pt: {
         "nav.servicos": "Serviços",
+        "nav.oportunidades": "Oportunidades",
         "nav.projetos": "Projetos",
         "nav.sobre": "Sobre",
         "nav.visao": "Visão",
@@ -172,6 +173,7 @@ const translations = {
     },
     en: {
         "nav.servicos": "Services",
+        "nav.oportunidades": "Opportunities",
         "nav.projetos": "Projects",
         "nav.sobre": "About",
         "nav.visao": "Vision",
@@ -343,6 +345,7 @@ const translations = {
     },
     es: {
         "nav.servicos": "Servicios",
+        "nav.oportunidades": "Oportunidades",
         "nav.projetos": "Proyectos",
         "nav.sobre": "Nosotros",
         "nav.visao": "Visión",
@@ -509,6 +512,7 @@ const translations = {
     },
     fr: {
         "nav.servicos": "Services",
+        "nav.oportunidades": "Opportunités",
         "nav.projetos": "Projets",
         "nav.sobre": "À propos",
         "nav.visao": "Vision",
@@ -675,6 +679,7 @@ const translations = {
     },
     de: {
         "nav.servicos": "Dienstleistungen",
+        "nav.oportunidades": "Gelegenheiten",
         "nav.projetos": "Projekte",
         "nav.sobre": "Über uns",
         "nav.visao": "Vision",

@@ -332,34 +332,21 @@
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center gap-10">
                 <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="#servicos" data-i18n="nav.servicos">Serviços</a>
+                    href="#servicos">Serviços</a>
                 <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="oportunidades.html" data-i18n="nav.oportunidades">Oportunidades</a>
+                    href="#projetos">Projetos</a>
                 <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="#projetos" data-i18n="nav.projetos">Projetos</a>
+                    href="#sobre">Sobre</a>
                 <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="#sobre" data-i18n="nav.sobre">Sobre</a>
+                    href="#visao">Visão</a>
                 <a class="text-sm font-medium hover:text-primary transition-colors uppercase tracking-widest"
-                    href="contacto.html" data-i18n="nav.contacto">Contacto</a>
-            </div>
-            <div class="hidden md:flex items-center ml-4 border-l border-white/10 pl-6 relative group h-20">
-                <button class="flex items-center gap-1 text-white/60 hover:text-primary transition-colors text-xs font-bold tracking-widest uppercase h-full px-2">
-                    <span class="material-symbols-outlined text-[18px]">language</span>
-                    <span id="active-lang-label">PT</span>
-                    <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
-                </button>
-                
-                <div class="absolute top-[80px] right-0 w-24 bg-[#0F0F10] border border-primary/20 rounded-md shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col py-2 z-50">
-                    <button onclick="switchLanguage('pt')" data-lang="pt" class="lang-selector px-4 py-2 text-xs font-bold tracking-widest uppercase text-left hover:bg-primary/10 text-white/60 transition-colors">PT</button>
-                    <button onclick="switchLanguage('en')" data-lang="en" class="lang-selector px-4 py-2 text-xs font-bold tracking-widest uppercase text-left hover:bg-primary/10 text-white/60 transition-colors">EN</button>
-                    <button onclick="switchLanguage('es')" data-lang="es" class="lang-selector px-4 py-2 text-xs font-bold tracking-widest uppercase text-left hover:bg-primary/10 text-white/60 transition-colors">ES</button>
-                    <button onclick="switchLanguage('fr')" data-lang="fr" class="lang-selector px-4 py-2 text-xs font-bold tracking-widest uppercase text-left hover:bg-primary/10 text-white/60 transition-colors">FR</button>
-                    <button onclick="switchLanguage('de')" data-lang="de" class="lang-selector px-4 py-2 text-xs font-bold tracking-widest uppercase text-left hover:bg-primary/10 text-white/60 transition-colors">DE</button>
-                </div>
+                    href="contacto.html">Contacto</a>
             </div>
             <!-- Desktop CTA -->
             <a href="analise.html"
-                class="hidden md:inline-flex bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded text-sm font-bold uppercase tracking-wider transition-all" data-i18n="nav.analisar" data-i18n="nav.analisar">Analisar Terreno</a>
+                class="hidden md:inline-flex bg-primary hover:bg-primary/90 text-background-dark px-6 py-2.5 rounded text-sm font-bold uppercase tracking-wider transition-all">
+                Analisar Terreno
+            </a>
             <!-- Mobile: Hamburger Button -->
             <button id="mobile-menu-btn" onclick="abrirMenuMobile()"
                 class="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] focus:outline-none"
@@ -384,25 +371,18 @@
                 <span class="material-symbols-outlined text-2xl">close</span>
             </button>
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-3 py-6 border-b border-white/10 w-full mb-4 px-4">
-            <button onclick="switchLanguage('pt')" data-lang="pt" class="lang-selector text-xs font-bold tracking-widest hover:text-white transition-colors uppercase px-3 py-1.5 rounded-md bg-white/5 border border-transparent">PT</button>
-            <button onclick="switchLanguage('en')" data-lang="en" class="lang-selector text-xs font-bold tracking-widest hover:text-white transition-colors uppercase px-3 py-1.5 rounded-md bg-white/5 border border-transparent">EN</button>
-            <button onclick="switchLanguage('es')" data-lang="es" class="lang-selector text-xs font-bold tracking-widest hover:text-white transition-colors uppercase px-3 py-1.5 rounded-md bg-white/5 border border-transparent">ES</button>
-            <button onclick="switchLanguage('fr')" data-lang="fr" class="lang-selector text-xs font-bold tracking-widest hover:text-white transition-colors uppercase px-3 py-1.5 rounded-md bg-white/5 border border-transparent">FR</button>
-            <button onclick="switchLanguage('de')" data-lang="de" class="lang-selector text-xs font-bold tracking-widest hover:text-white transition-colors uppercase px-3 py-1.5 rounded-md bg-white/5 border border-transparent">DE</button>
-        </div>
         <nav class="mobile-menu-links">
             <a href="#servicos" onclick="fecharMenuMobile()">
                 <span class="material-symbols-outlined">analytics</span>Serviços
-            </a>
-            <a href="oportunidades.html" onclick="fecharMenuMobile()" data-i18n="nav.oportunidades">
-                <span class="material-symbols-outlined">grid_view</span>Oportunidades
             </a>
             <a href="#projetos" onclick="fecharMenuMobile()">
                 <span class="material-symbols-outlined">eco</span>Projetos
             </a>
             <a href="#sobre" onclick="fecharMenuMobile()">
                 <span class="material-symbols-outlined">person</span>Sobre
+            </a>
+            <a href="#visao" onclick="fecharMenuMobile()">
+                <span class="material-symbols-outlined">visibility</span>Visão
             </a>
             <a href="contacto.html" onclick="fecharMenuMobile()">
                 <span class="material-symbols-outlined">mail</span>Contacto
@@ -437,19 +417,27 @@
         </div>
         <div class="relative z-20 max-w-7xl mx-auto px-6 w-full">
             <div class="max-w-3xl">
-                <h1 class="text-5xl md:text-7xl font-display font-light text-white leading-[1.1] mb-8 drop-shadow-lg" data-i18n="hero.tit">Transformamos terrenos rústicos em <br class="hidden md:block" />
+                <h1 class="text-5xl md:text-7xl font-display font-light text-white leading-[1.1] mb-8 drop-shadow-lg">
+                    Transformamos terrenos rústicos em <br class="hidden md:block" />
                     <span class="text-primary font-bold italic">projetos rentáveis de ecoturismo</span><br
                         class="hidden md:block" />
-                    em Portugal</h1>
-                <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light" data-i18n="hero.sub">Consultoria especializada na análise de terrenos e desenvolvimento de projetos turísticos
-                    sustentáveis como ecovillages, eco resorts, glamping e parques de caravanismo.</p>
+                    em Portugal
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light">
+                    Consultoria especializada na análise de terrenos e desenvolvimento de projetos turísticos
+                    sustentáveis como ecovillages, eco resorts, glamping e parques de caravanismo.
+                </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="contacto.html"
-                        class="bg-primary hover:bg-primary/90 text-background-dark px-8 py-4 rounded-lg font-bold uppercase tracking-wider transition-all text-center flex items-center justify-center gap-2 group" data-i18n="hero.btn.analise">Solicitar Análise
+                        class="bg-primary hover:bg-primary/90 text-background-dark px-8 py-4 rounded-lg font-bold uppercase tracking-wider transition-all text-center flex items-center justify-center gap-2 group">
+                        Solicitar Análise
                         <span
-                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span></a>
+                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
                     <a href="#projetos"
-                        class="border border-white/20 hover:border-primary text-white hover:text-primary px-8 py-4 rounded-lg font-bold uppercase tracking-wider transition-all text-center backdrop-blur-sm bg-white/5" data-i18n="hero.btn.projetos">Ver Projetos</a>
+                        class="border border-white/20 hover:border-primary text-white hover:text-primary px-8 py-4 rounded-lg font-bold uppercase tracking-wider transition-all text-center backdrop-blur-sm bg-white/5">
+                        Ver Projetos
+                    </a>
                 </div>
             </div>
         </div>
@@ -459,18 +447,24 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-grid-cols-2 gap-16 items-center">
                 <div>
-                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="opp.pre">Oportunidade de
+                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Oportunidade de
                         Mercado</span>
-                    <h2 class="text-4xl md:text-5xl font-display mb-8" data-i18n="opp.tit">O futuro do turismo está na natureza &mdash; e
+                    <h2 class="text-4xl md:text-5xl font-display mb-8">O futuro do turismo está na natureza &mdash; e
                         Portugal está no centro desta mudança</h2>
-                    <p class="text-lg text-slate-400 leading-relaxed mb-6" data-i18n="opp.p1">Portugal voltou ao mapa do mundo. O viajante moderno já não quer hotéis de cidade nem praias
+                    <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                        Portugal voltou ao mapa do mundo. O viajante moderno já não quer hotéis de cidade nem praias
                         superlotadas &mdash; procura natureza, autenticidade e experiências que não se encontram em
-                        catálogos.</p>
-                    <p class="text-lg text-slate-400 leading-relaxed mb-6" data-i18n="opp.p2">Portugal reúne condições únicas para responder a esta procura: clima excecional durante todo o
+                        catálogos.
+                    </p>
+                    <p class="text-lg text-slate-400 leading-relaxed mb-6">
+                        Portugal reúne condições únicas para responder a esta procura: clima excecional durante todo o
                         ano, paisagens diversas do norte ao sul, e uma riqueza natural que poucos países europeus
                         conseguem igualar. O ecoturismo está em plena expansão &mdash; e Portugal está no centro desta
-                        vaga global.</p>
-                    <p class="text-lg text-slate-400 leading-relaxed" data-i18n="opp.p3">A oportunidade está no seu terreno. Nós revelamos o seu potencial.</p>
+                        vaga global.
+                    </p>
+                    <p class="text-lg text-slate-400 leading-relaxed">
+                        A oportunidade está no seu terreno. Nós revelamos o seu potencial.
+                    </p>
                 </div>
                 <!-- Grelha de Dados (Estatísticas Animadas) -->
                 <div class="grid grid-cols-2 gap-4 sm:gap-6 h-full min-h-[400px]" id="stats-grid">
@@ -483,9 +477,9 @@
                         <span class="text-4xl md:text-6xl font-display text-white mb-2 counter-value drop-shadow-lg"
                             data-target="300">0</span>
                         <span
-                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10" data-i18n="stats.dias.tit">Dias
+                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">Dias
                             de Sol</span>
-                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10" data-i18n="stats.dias.sub">Condições
+                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">Condições
                             ideais de atratividade durante todo o ano</p>
                     </div>
 
@@ -501,9 +495,9 @@
                             <span class="text-3xl md:text-4xl font-display text-primary">%</span>
                         </div>
                         <span
-                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10" data-i18n="stats.proc.tit">Aumento
+                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">Aumento
                             da Procura</span>
-                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10" data-i18n="stats.proc.sub">O
+                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">O
                             crescimento constante no setor do turismo de natureza</p>
                     </div>
 
@@ -516,8 +510,8 @@
                         <span
                             class="material-symbols-outlined text-4xl md:text-5xl text-white mb-3 font-light drop-shadow-lg">camping</span>
                         <span
-                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10" data-i18n="stats.eco.tit">ECOTURISMO</span>
-                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10" data-i18n="stats.eco.sub">Hospedagem imersiva que gera receita contínua e impacto ambiental positivo.</p>
+                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">ECOTURISMO</span>
+                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">Hospedagem imersiva que gera receita contínua e impacto ambiental positivo.</p>
                     </div>
 
                     <!-- Card 4 -->
@@ -529,9 +523,9 @@
                         <span
                             class="material-symbols-outlined text-4xl md:text-5xl text-white mb-3 font-light drop-shadow-lg">query_stats</span>
                         <span
-                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10" data-i18n="stats.rent.tit">Alta
+                            class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold mb-2 relative z-10">Alta
                             Rentabilidade</span>
-                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10" data-i18n="stats.rent.sub">Menor
+                        <p class="text-xs md:text-sm text-slate-400 font-light hidden sm:block relative z-10">Menor
                             custo de implantação com ROI substancialmente mais rápido</p>
                     </div>
                 </div>
@@ -581,9 +575,9 @@
     <section class="py-24 bg-background-dark border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="proc.pre">Como
+                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Como
                     Trabalhamos</span>
-                <h2 class="text-4xl md:text-5xl font-display" data-i18n="proc.tit">O Nosso Processo</h2>
+                <h2 class="text-4xl md:text-5xl font-display">O Nosso Processo</h2>
             </div>
             <div class="grid md:grid-cols-4 gap-8 relative">
                 <!-- Linha conectora -->
@@ -593,8 +587,8 @@
                     <div
                         class="w-16 h-16 rounded-full bg-background-dark border-2 border-primary flex items-center justify-center text-primary text-2xl font-display font-bold mb-6">
                         1</div>
-                    <h4 class="text-white font-bold mb-3" data-i18n="proc.1.tit">Diagnóstico</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="proc.1.sub">Análise topográfica e viabilidade inicial do
+                    <h4 class="text-white font-bold mb-3">Diagnóstico</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Análise topográfica e viabilidade inicial do
                         terreno rústico.</p>
                 </div>
 
@@ -602,8 +596,8 @@
                     <div
                         class="w-16 h-16 rounded-full bg-background-dark border-2 border-primary flex items-center justify-center text-primary text-2xl font-display font-bold mb-6">
                         2</div>
-                    <h4 class="text-white font-bold mb-3" data-i18n="proc.2.tit">Enquadramento Legal</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="proc.2.sub">Estudo de PDM, reservas ecológicas e viabilidade
+                    <h4 class="text-white font-bold mb-3">Enquadramento Legal</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Estudo de PDM, reservas ecológicas e viabilidade
                         construtiva regional.</p>
                 </div>
 
@@ -611,8 +605,8 @@
                     <div
                         class="w-16 h-16 rounded-full bg-background-dark border-2 border-primary flex items-center justify-center text-primary text-2xl font-display font-bold mb-6">
                         3</div>
-                    <h4 class="text-white font-bold mb-3" data-i18n="proc.3.tit">Concept Design</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="proc.3.sub">Criação do projeto arquitetônico focado em
+                    <h4 class="text-white font-bold mb-3">Concept Design</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Criação do projeto arquitetônico focado em
                         ecoturismo e sustentabilidade.</p>
                 </div>
 
@@ -620,8 +614,8 @@
                     <div
                         class="w-16 h-16 rounded-full bg-background-dark border-2 border-primary flex items-center justify-center text-primary text-2xl font-display font-bold mb-6">
                         4</div>
-                    <h4 class="text-white font-bold mb-3" data-i18n="proc.4.tit">Licenciamento</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed" data-i18n="proc.4.sub">Desenvolvimento burocrático camarário rumo à
+                    <h4 class="text-white font-bold mb-3">Licenciamento</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Desenvolvimento burocrático camarário rumo à
                         aprovação da obra.</p>
                 </div>
             </div>
@@ -632,56 +626,56 @@
     <section class="py-24 bg-background-light dark:bg-background-dark" id="servicos">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20">
-                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="serv.pre">Especialização</span>
-                <h2 class="text-4xl md:text-5xl font-display" data-i18n="serv.tit">O que fazemos</h2>
+                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Especialização</span>
+                <h2 class="text-4xl md:text-5xl font-display">O que fazemos</h2>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Service 1 -->
                 <div
                     class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6">analytics</span>
-                    <h3 class="text-xl font-display mb-4 text-white" data-i18n="serv.1.tit">Análise de Potencial</h3>
-                    <p class="text-slate-400 font-light leading-relaxed" data-i18n="serv.1.sub">Avaliação técnica detalhada da vocação
+                    <h3 class="text-xl font-display mb-4 text-white">Análise de Potencial</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Avaliação técnica detalhada da vocação
                         turística e viabilidade comercial do seu terreno.</p>
                 </div>
                 <!-- Service 2 -->
                 <div
                     class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6">gavel</span>
-                    <h3 class="text-xl font-display mb-4 text-white" data-i18n="serv.2.tit">Verificação Jurídica</h3>
-                    <p class="text-slate-400 font-light leading-relaxed" data-i18n="serv.2.sub">Análise rigorosa de condicionantes legais: PDM,
+                    <h3 class="text-xl font-display mb-4 text-white">Verificação Jurídica</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Análise rigorosa de condicionantes legais: PDM,
                         REN, RAN e regulamentos ambientais.</p>
                 </div>
                 <!-- Service 3 -->
                 <div
                     class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6">eco</span>
-                    <h3 class="text-xl font-display mb-4 text-white" data-i18n="serv.3.tit">Projetos Sustentáveis</h3>
-                    <p class="text-slate-400 font-light leading-relaxed" data-i18n="serv.3.sub">Desenvolvimento integral de conceitos de
+                    <h3 class="text-xl font-display mb-4 text-white">Projetos Sustentáveis</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Desenvolvimento integral de conceitos de
                         ecoturismo com foco em baixo impacto ambiental.</p>
                 </div>
                 <!-- Service 4 -->
                 <div
                     class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6">lightbulb</span>
-                    <h3 class="text-xl font-display mb-4 text-white" data-i18n="serv.4.tit">Criação de Conceitos</h3>
-                    <p class="text-slate-400 font-light leading-relaxed" data-i18n="serv.4.sub">Design de experiências únicas que diferenciam o
+                    <h3 class="text-xl font-display mb-4 text-white">Criação de Conceitos</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Design de experiências únicas que diferenciam o
                         seu projeto no mercado de luxo rural.</p>
                 </div>
                 <!-- Service 5 -->
                 <div
                     class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6">payments</span>
-                    <h3 class="text-xl font-display mb-4 text-white" data-i18n="serv.5.tit">Consultoria de Investimento</h3>
-                    <p class="text-slate-400 font-light leading-relaxed" data-i18n="serv.5.sub">Apoio estratégico para investidores que
+                    <h3 class="text-xl font-display mb-4 text-white">Consultoria de Investimento</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Apoio estratégico para investidores que
                         procuram ativos rústicos com alto potencial de retorno.</p>
                 </div>
                 <!-- Service 6 -->
                 <div
                     class="p-8 border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all rounded-xl group">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6">architecture</span>
-                    <h3 class="text-xl font-display mb-4 text-white" data-i18n="serv.6.tit">Gestão de Licenciamento</h3>
-                    <p class="text-slate-400 font-light leading-relaxed" data-i18n="serv.6.sub">Coordenação do processo burocrático junto das
+                    <h3 class="text-xl font-display mb-4 text-white">Gestão de Licenciamento</h3>
+                    <p class="text-slate-400 font-light leading-relaxed">Coordenação do processo burocrático junto das
                         entidades municipais e regionais.</p>
                 </div>
             </div>
@@ -692,9 +686,9 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-end mb-16">
                 <div>
-                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="port.pre">Portfólio de
+                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Portfólio de
                         Conceitos</span>
-                    <h2 class="text-4xl md:text-5xl font-display" data-i18n="port.tit">Tipologias de Projeto</h2>
+                    <h2 class="text-4xl md:text-5xl font-display">Tipologias de Projeto</h2>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -708,9 +702,11 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg" data-i18n="port.1.tit">Parque de Caravanismo Premium</h3>
-                        <p class="text-slate-200 font-light mb-6 text-sm" data-i18n="port.1.sub">Infraestrutura que trabalha por si, 365 dias por ano.</p>
-                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3" data-i18n="port.btn">Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span></button>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Parque de Caravanismo Premium</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Infraestrutura que trabalha por si, 365 dias por ano.</p>
+                        <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
+                            Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
+                        </button>
                     </div>
                 </div>
 
@@ -724,8 +720,8 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg" data-i18n="port.2.tit">Ecovillage / Comunidade Intencional</h3>
-                        <p class="text-slate-200 font-light mb-6 text-sm" data-i18n="port.2.sub">Um modelo de vida que também gera rendimento.</p>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Ecovillage / Comunidade Intencional</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Um modelo de vida que também gera rendimento.</p>
                         <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
                             Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
                         </button>
@@ -742,8 +738,8 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg" data-i18n="port.3.tit">Retiro de Imersão</h3>
-                        <p class="text-slate-200 font-light mb-6 text-sm" data-i18n="port.3.sub">Silêncio, programa e transformação — para quem quer mais do que uma simples viagem.</p>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Retiro de Imersão</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Silêncio, programa e transformação — para quem quer mais do que uma simples viagem.</p>
                         <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
                             Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
                         </button>
@@ -760,8 +756,8 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg" data-i18n="port.4.tit">Turismo Rural Produtivo</h3>
-                        <p class="text-slate-200 font-light mb-6 text-sm" data-i18n="port.4.sub">A terra em funcionamento é o produto.</p>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Turismo Rural Produtivo</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">A terra em funcionamento é o produto.</p>
                         <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
                             Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
                         </button>
@@ -778,8 +774,8 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg" data-i18n="port.5.tit">Eco Resort de Natureza</h3>
-                        <p class="text-slate-200 font-light mb-6 text-sm" data-i18n="port.5.sub">Hospitalidade de alto nível com pegada ecológica real.</p>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Eco Resort de Natureza</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Hospitalidade de alto nível com pegada ecológica real.</p>
                         <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
                             Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
                         </button>
@@ -796,8 +792,8 @@
                     <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
-                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg" data-i18n="port.6.tit">Alojamento Modular de Natureza</h3>
-                        <p class="text-slate-200 font-light mb-6 text-sm" data-i18n="port.6.sub">Construção rápida, impacto mínimo, rentabilidade imediata.</p>
+                        <h3 class="text-2xl font-display text-white mb-2 drop-shadow-lg">Alojamento Modular de Natureza</h3>
+                        <p class="text-slate-200 font-light mb-6 text-sm">Construção rápida, impacto mínimo, rentabilidade imediata.</p>
                         <button class="self-start text-sm font-bold uppercase tracking-widest text-primary hover:text-white transition-colors flex items-center gap-2 group-hover:gap-3">
                             Saiba Mais <span class="material-symbols-outlined text-base">arrow_forward</span>
                         </button>
@@ -825,20 +821,20 @@
                         <p class="text-primary font-bold uppercase tracking-widest text-xs mb-6">Infraestrutura que
                             trabalha por si, 365 dias por ano.</p>
                         <div class="space-y-4 text-slate-400 leading-relaxed font-light">
-                            <p data-i18n="mod.1.p1">O Algarve e o Alentejo oferecem uma vantagem que poucos mercados turísticos europeus
+                            <p>O Algarve e o Alentejo oferecem uma vantagem que poucos mercados turísticos europeus
                                 conseguem igualar: ocupação o ano inteiro, com dois perfis de cliente completamente
                                 distintos e complementares.</p>
-                            <p data-i18n="mod.1.p2">No verão, o Algarve recebe milhões de visitantes que procuram sol, praia e natureza. O
+                            <p>No verão, o Algarve recebe milhões de visitantes que procuram sol, praia e natureza. O
                                 Alentejo atrai quem foge das multidões — viajantes que procuram paisagem aberta,
                                 silêncio e autenticidade. No inverno, ambas as regiões tornam-se destino dos snowbirds —
                                 cidadãos do norte e centro da Europa que fogem do frio extremo e instalam-se durante
                                 meses. Não são turistas de passagem. Ficam semanas, às vezes toda a estação, com despesa
                                 diária consistente e perfil de alto poder de compra.</p>
-                            <p data-i18n="mod.1.p3">Para um parque de caravanismo bem posicionado, este calendário traduz-se num dos modelos
+                            <p>Para um parque de caravanismo bem posicionado, este calendário traduz-se num dos modelos
                                 de maior rentabilidade do setor: receita diária garantida no verão, contratos de longa
                                 estadia no inverno, e custos operacionais baixos ao longo de todo o ano. Sem meses
                                 mortos. Sem interrupções de cash-flow.</p>
-                            <p data-i18n="mod.1.p4">Desenvolvemos parques com infraestrutura completa — água, energia, saneamento, zonas de
+                            <p>Desenvolvemos parques com infraestrutura completa — água, energia, saneamento, zonas de
                                 serviço e áreas de lazer — pensados para maximizar a rentabilidade em cada época e
                                 capturar os dois perfis de cliente. Num mercado em forte expansão em toda a Europa, o
                                 Algarve e o Alentejo não são apenas boas localizações — são duas das mais rentáveis do
@@ -867,22 +863,22 @@
                         <p class="text-primary font-bold uppercase tracking-widest text-xs mb-6">Um modelo de vida que
                             também gera rendimento.</p>
                         <div class="space-y-4 text-slate-400 leading-relaxed font-light">
-                            <p data-i18n="mod.2.p1">Uma ecovillage é uma comunidade projetada para funcionar em harmonia com a natureza —
+                            <p>Uma ecovillage é uma comunidade projetada para funcionar em harmonia com a natureza —
                                 onde a energia vem do sol, a água é gerida em ciclo fechado, os alimentos são produzidos
                                 no próprio terreno e as decisões são tomadas coletivamente. Não é um conceito utópico. É
                                 um modelo de organização territorial com décadas de história e centenas de casos de
                                 sucesso em todo o mundo.</p>
-                            <p data-i18n="mod.2.p2">Em Portugal, o interesse por este estilo de vida cresce a um ritmo acelerado, atraindo
+                            <p>Em Portugal, o interesse por este estilo de vida cresce a um ritmo acelerado, atraindo
                                 portugueses e estrangeiros de múltiplas nacionalidades que procuram uma alternativa real
                                 ao modelo urbano — pessoas dispostas a investir na sua parcela, a construir a sua casa e
                                 a partilhar infraestrutura com uma comunidade alinhada com os mesmos valores.</p>
-                            <p data-i18n="mod.2.p3">Mas o modelo vai mais longe. Uma ecovillage bem estruturada pode integrar uma componente
+                            <p>Mas o modelo vai mais longe. Uma ecovillage bem estruturada pode integrar uma componente
                                 turística ativa — alojamentos disponíveis em plataformas como Airbnb, recebendo
                                 visitantes que querem experienciar este estilo de vida antes de o adotar. Cabras,
                                 galinhas, hortas, oficinas de permacultura, refeições comunitárias — são exatamente
                                 estes elementos que tornam a experiência irrepetível e geram avaliações de cinco
                                 estrelas. O visitante não vem dormir. Vem viver.</p>
-                            <p data-i18n="mod.2.p4">O resultado é um projeto com duas fontes de rendimento distintas: as contribuições dos
+                            <p>O resultado é um projeto com duas fontes de rendimento distintas: as contribuições dos
                                 residentes permanentes e a receita turística de curta estadia. Um investimento de
                                 impacto real, com retorno estruturado e sustentável a longo prazo.</p>
                         </div>
@@ -909,23 +905,23 @@
                         <p class="text-primary font-bold uppercase tracking-widest text-xs mb-6">Silêncio, programa e
                             transformação — para quem quer mais do que uma simples viagem.</p>
                         <div class="space-y-4 text-slate-400 leading-relaxed font-light">
-                            <p data-i18n="mod.3.p1">O mercado de retiros é hoje um dos segmentos de maior crescimento no turismo mundial — e
+                            <p>O mercado de retiros é hoje um dos segmentos de maior crescimento no turismo mundial — e
                                 um dos de maior ticket médio. O cliente não paga apenas pela cama. Paga pelo isolamento,
                                 pelo programa estruturado, pela qualidade do ambiente e pela transformação que leva para
                                 casa.</p>
-                            <p data-i18n="mod.3.p2">Em terrenos remotos com boa paisagem — que noutros contextos seriam uma limitação — o
+                            <p>Em terrenos remotos com boa paisagem — que noutros contextos seriam uma limitação — o
                                 isolamento torna-se o produto principal. Quanto mais longe do ruído urbano, mais valioso
                                 o espaço.</p>
-                            <p data-i18n="mod.3.p3">As possibilidades são vastas: retiros de yoga e meditação, programas de wellness e
+                            <p>As possibilidades são vastas: retiros de yoga e meditação, programas de wellness e
                                 desintoxicação digital, imersões de permacultura, semanas de silêncio. Mas o conceito
                                 vai além do adulto em busca de paz interior. Uma propriedade bem estruturada pode
                                 receber famílias inteiras com um programa rico e memorável — oficinas de bushcraft e
                                 sobrevivência na natureza, cerâmica e trabalhos manuais com materiais locais, construção
                                 com barro e madeira, identificação de plantas e culinária selvagem, observação de
                                 animais e contacto com a terra.</p>
-                            <p data-i18n="mod.3.p4">São experiências que as crianças recordam para a vida — e que os pais procuram ativamente
+                            <p>São experiências que as crianças recordam para a vida — e que os pais procuram ativamente
                                 como alternativa ao turismo de massas.</p>
-                            <p data-i18n="mod.3.p5">Estruturas leves, impacto ambiental mínimo e licenciamento simplificado fazem deste
+                            <p>Estruturas leves, impacto ambiental mínimo e licenciamento simplificado fazem deste
                                 modelo uma das entradas mais acessíveis no mercado do ecoturismo — com margem para
                                 escalar conforme a procura cresce.</p>
                         </div>
@@ -952,22 +948,22 @@
                         <p class="text-primary font-bold uppercase tracking-widest text-xs mb-6">A terra em
                             funcionamento é o produto.</p>
                         <div class="space-y-4 text-slate-400 leading-relaxed font-light">
-                            <p data-i18n="mod.4.p1">Num mundo saturado de experiências artificiais, o turista moderno procura algo que não se
+                            <p>Num mundo saturado de experiências artificiais, o turista moderno procura algo que não se
                                 compra num centro comercial — autenticidade. Quintas e herdades onde a vida acontece de
                                 verdade, onde o ritmo é ditado pela terra e pelas estações, e onde o visitante não é
                                 espectador mas participante.</p>
-                            <p data-i18n="mod.4.p2">Este modelo combina alojamento rural com atividade agrícola real: colheita de azeitona,
+                            <p>Este modelo combina alojamento rural com atividade agrícola real: colheita de azeitona,
                                 produção de cortiça, pastoreio, agricultura biodinâmica, apicultura, vinificação. O
                                 turista acorda, coloca as mãos na terra e percebe de onde vem o que come. É uma
                                 narrativa que o mercado internacional procura ativamente e está disposto a pagar bem por
                                 ela.</p>
-                            <p data-i18n="mod.4.p3">Mas a propriedade produtiva oferece muito mais do que a experiência agrícola. O
+                            <p>Mas a propriedade produtiva oferece muito mais do que a experiência agrícola. O
                                 território envolvente torna-se um destino em si mesmo — trilhos pedestres e de BTT
                                 desenhados na propriedade, rotas de mountain bike para todos os níveis, orientação e
                                 navegação na natureza, escalada e rapel em formações rochosas, observação de aves e
                                 fauna selvagem, canoagem e kayak em linhas de água próximas, equitação e passeios a
                                 cavalo pela herdade.</p>
-                            <p data-i18n="mod.4.p4">Para famílias, grupos e viajantes ativos, uma propriedade rural bem estruturada pode
+                            <p>Para famílias, grupos e viajantes ativos, uma propriedade rural bem estruturada pode
                                 oferecer uma semana inteira de programa sem repetir uma atividade. Muito forte no
                                 Alentejo e no interior do Algarve, onde a escala dos terrenos e a riqueza da paisagem
                                 criam condições únicas para este modelo.</p>
@@ -995,22 +991,22 @@
                         <p class="text-primary font-bold uppercase tracking-widest text-xs mb-6">Hospitalidade de alto
                             nível com pegada ecológica real.</p>
                         <div class="space-y-4 text-slate-400 leading-relaxed font-light">
-                            <p data-i18n="mod.5.p1">O Eco Resort é o modelo mais próximo do hotel de luxo convencional — mas com uma
+                            <p>O Eco Resort é o modelo mais próximo do hotel de luxo convencional — mas com uma
                                 diferença fundamental: a natureza não é o cenário, é o produto. Unidades de alojamento
                                 dispersas pelo terreno, cada uma com privacidade total e vista desafogada, zonas comuns
                                 cuidadas ao detalhe, e um nível de serviço que justifica tarifas premium.</p>
-                            <p data-i18n="mod.5.p2">O hóspede que escolhe um Eco Resort não abdica do conforto. Quer a cama de qualidade, o
+                            <p>O hóspede que escolhe um Eco Resort não abdica do conforto. Quer a cama de qualidade, o
                                 pequeno-almoço cuidado, a piscina integrada na paisagem, o spa com materiais naturais, o
                                 jantar com produtos locais servido sob as estrelas. O que recusa é a impessoalidade do
                                 hotel urbano e o impacto ambiental que ele representa. É um cliente exigente, fiel e com
                                 alto poder de compra — e está disposto a pagar significativamente acima da média do
                                 mercado por uma experiência que sente como única e responsável.</p>
-                            <p data-i18n="mod.5.p3">Para o investidor, este modelo representa uma das propostas de maior retorno no
+                            <p>Para o investidor, este modelo representa uma das propostas de maior retorno no
                                 ecoturismo. Tarifas de ocupação premium, possibilidade de gestão por operador
                                 especializado, e um ativo imobiliário que valoriza com o tempo. A dispersão das unidades
                                 pelo terreno permite uma entrada faseada — começa com quatro ou cinco unidades, valida o
                                 conceito no mercado, e escala com capital gerado pela própria operação.</p>
-                            <p data-i18n="mod.5.p4">Desenhamos o conceito, o masterplan e a estratégia de rentabilidade para maximizar a
+                            <p>Desenhamos o conceito, o masterplan e a estratégia de rentabilidade para maximizar a
                                 privacidade de cada unidade, a eficiência do conjunto e o retorno consistente ao longo
                                 de todo o ano.</p>
                         </div>
@@ -1037,24 +1033,24 @@
                         <p class="text-primary font-bold uppercase tracking-widest text-xs mb-6">Construção rápida,
                             impacto mínimo, rentabilidade imediata.</p>
                         <div class="space-y-4 text-slate-400 leading-relaxed font-light">
-                            <p data-i18n="mod.6.p1">O alojamento modular representa uma revolução silenciosa no turismo de natureza. Cabanas
+                            <p>O alojamento modular representa uma revolução silenciosa no turismo de natureza. Cabanas
                                 em madeira, cápsulas de design, unidades em contentor convertido, domes geodésicos —
                                 estruturas pensadas para se instalar rapidamente, integrar na paisagem sem a agredir, e
                                 começar a gerar receita em semanas, não em anos.</p>
-                            <p data-i18n="mod.6.p2">A grande vantagem deste modelo é a velocidade. Enquanto um projeto de construção
+                            <p>A grande vantagem deste modelo é a velocidade. Enquanto um projeto de construção
                                 convencional pode demorar dois ou três anos entre projeto, licenciamento e obra, uma
                                 unidade modular bem planeada pode estar operacional numa fração desse tempo. Para o
                                 investidor que quer validar o conceito antes de escalar, é o ponto de entrada ideal.</p>
-                            <p data-i18n="mod.6.p3">As tipologias são diversas e adaptam-se a qualquer terreno e orçamento. Cápsulas de
+                            <p>As tipologias são diversas e adaptam-se a qualquer terreno e orçamento. Cápsulas de
                                 design com acabamentos premium para o segmento de luxo. Unidades em contentor convertido
                                 — robustas, modulares e com estética industrial que o mercado jovem e urbano procura
                                 ativamente. Cabanas em madeira integradas na vegetação existente. Domes geodésicos para
                                 uma experiência verdadeiramente única sob o céu estrelado.</p>
-                            <p data-i18n="mod.6.p4">Cada unidade pode ser instalada de forma autónoma ou agrupada em conjunto, criando um
+                            <p>Cada unidade pode ser instalada de forma autónoma ou agrupada em conjunto, criando um
                                 pequeno resort modular escalável. Começa com duas ou três unidades, cresce conforme a
                                 procura — sem grandes investimentos iniciais, sem obras pesadas, sem riscos
                                 desnecessários.</p>
-                            <p data-i18n="mod.6.p5">Trabalhamos com parceiros especializados em estruturas modulares para garantir qualidade
+                            <p>Trabalhamos com parceiros especializados em estruturas modulares para garantir qualidade
                                 de construção, integração estética e conformidade legal em cada projeto.</p>
                         </div>
                     </div>
@@ -1096,17 +1092,20 @@
                     </div>
                 </div>
                 <div class="w-full md:w-7/12 lg:w-3/5">
-                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="sobre.pre">O
+                    <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">O
                         Consultor</span>
                     <h2 class="text-4xl md:text-5xl font-display mb-8">Richel Goulart</h2>
 
-                    <p class="text-lg text-slate-300 leading-relaxed mb-6" data-i18n="sobre.p1">Richel Goulart é consultor especializado no desenvolvimento de projetos de ecoturismo e na
+                    <p class="text-lg text-slate-300 leading-relaxed mb-6">
+                        Richel Goulart é consultor especializado no desenvolvimento de projetos de ecoturismo e na
                         rentabilização de terrenos rústicos em Portugal. O seu trabalho centra-se em identificar o
                         potencial oculto de propriedades rurais e transformá-las em projetos turísticos sustentáveis,
-                        legalizados e economicamente viáveis — do primeiro diagnóstico à entrega final.</p>
+                        legalizados e economicamente viáveis — do primeiro diagnóstico à entrega final.
+                    </p>
 
                     <div id="mais-texto-consultor" class="hidden transition-all duration-500 origin-top">
-                        <p class="text-lg text-slate-300 leading-relaxed mb-6" data-i18n="sobre.p2">O que distingue a sua abordagem é a experiência vivida no terreno. Para compreender de forma
+                        <p class="text-lg text-slate-300 leading-relaxed mb-6">
+                            O que distingue a sua abordagem é a experiência vivida no terreno. Para compreender de forma
                             profunda o funcionamento real de comunidades sustentáveis, viveu durante quatro meses dentro
                             de
                             uma ecovillage, participando ativamente na sua dinâmica, organização e desafios do dia a
@@ -1116,20 +1115,25 @@
                             que nenhum curso ou manual consegue substituir: sabe onde os projetos falham, o que os
                             investidores não antecipam e o que é necessário para que uma comunidade sustentável funcione
                             de
-                            verdade.</p>
-                        <p class="text-lg text-slate-300 leading-relaxed mb-6" data-i18n="sobre.p3">A este conhecimento junta-se uma sólida experiência internacional em construção — adquirida
+                            verdade.
+                        </p>
+                        <p class="text-lg text-slate-300 leading-relaxed mb-6">
+                            A este conhecimento junta-se uma sólida experiência internacional em construção — adquirida
                             ao
                             longo de anos de trabalho no Canadá e no Reino Unido — que lhe permite acompanhar cada
                             projeto
                             com rigor técnico desde a análise do terreno até à execução da obra. Domina soluções
                             off-grid,
                             infraestruturas e sistemas construtivos que são parte integrante de qualquer projeto de
-                            ecoturismo bem executado.</p>
-                        <p class="text-lg text-slate-300 leading-relaxed mb-10" data-i18n="sobre.p4">Opera em todo o território nacional, com especial enfoque no Algarve e no Alentejo — duas
-                            regiões com condições únicas para o desenvolvimento de ecoturismo de alto valor em Portugal.</p>
+                            ecoturismo bem executado.
+                        </p>
+                        <p class="text-lg text-slate-300 leading-relaxed mb-10">
+                            Opera em todo o território nacional, com especial enfoque no Algarve e no Alentejo — duas
+                            regiões com condições únicas para o desenvolvimento de ecoturismo de alto valor em Portugal.
+                        </p>
                         <div class="flex gap-4 items-center p-6 border border-primary/20 bg-primary/5 rounded-lg mb-6">
                             <span class="material-symbols-outlined text-primary text-4xl">format_quote</span>
-                            <p class="italic text-slate-300" data-i18n="sobre.quote">"O nosso trabalho começa onde muitos apenas veem terra:
+                            <p class="italic text-slate-300">"O nosso trabalho começa onde muitos apenas veem terra:
                                 identificamos potencial e transformamos território em oportunidade."</p>
                         </div>
                     </div>
@@ -1148,8 +1152,8 @@
         <div class="absolute top-0 right-0 w-1/3 h-full bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
-                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="inst.pre">Institucional</span>
-                <h2 class="text-4xl md:text-5xl font-display text-white" data-i18n="inst.tit">Missão, Visão e Valores</h2>
+                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Institucional</span>
+                <h2 class="text-4xl md:text-5xl font-display text-white">Missão, Visão e Valores</h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
@@ -1157,40 +1161,44 @@
                 <div class="bg-white/[0.03] border border-white/5 p-10 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 group flex flex-col h-full">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6 block group-hover:scale-110 transition-transform">track_changes</span>
                     <h3 class="text-2xl font-display text-white mb-6">Missão</h3>
-                    <p class="text-slate-400 font-light leading-relaxed flex-grow" data-i18n="inst.mis.p">Transformar terrenos rústicos em projetos de ecoturismo viáveis, sustentáveis e rentáveis — acompanhando cada cliente desde a análise do terreno até à entrega do projeto pronto a operar. O nosso trabalho é revelar o potencial oculto da terra portuguesa e traduzi-lo em ativos reais com impacto positivo no território, nas comunidades e no investidor.</p>
+                    <p class="text-slate-400 font-light leading-relaxed flex-grow">
+                        Transformar terrenos rústicos em projetos de ecoturismo viáveis, sustentáveis e rentáveis — acompanhando cada cliente desde a análise do terreno até à entrega do projeto pronto a operar. O nosso trabalho é revelar o potencial oculto da terra portuguesa e traduzi-lo em ativos reais com impacto positivo no território, nas comunidades e no investidor.
+                    </p>
                 </div>
 
                 <!-- Vision -->
                 <div class="bg-white/[0.03] border border-white/5 p-10 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 group flex flex-col h-full">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6 block group-hover:scale-110 transition-transform">visibility</span>
                     <h3 class="text-2xl font-display text-white mb-6">Visão</h3>
-                    <p class="text-slate-400 font-light leading-relaxed flex-grow" data-i18n="inst.vis.p">Acreditamos que Portugal tem todas as condições para se tornar a referência mundial em ecoturismo de qualidade. A nossa visão é contribuir ativamente para esse futuro: transformando intenções em projetos reais, burocracia em licenças aprovadas, e terra crua em legados para as próximas gerações.</p>
+                    <p class="text-slate-400 font-light leading-relaxed flex-grow">
+                        Acreditamos que Portugal tem todas as condições para se tornar a referência mundial em ecoturismo de qualidade. A nossa visão é contribuir ativamente para esse futuro: transformando intenções em projetos reais, burocracia em licenças aprovadas, e terra crua em legados para as próximas gerações.
+                    </p>
                 </div>
 
                 <!-- Values -->
                 <div class="bg-white/[0.03] border border-white/5 p-10 rounded-2xl hover:bg-white/[0.05] transition-all duration-500 group flex flex-col h-full">
                     <span class="material-symbols-outlined text-primary text-4xl mb-6 block group-hover:scale-110 transition-transform">verified</span>
-                    <h3 class="text-2xl font-display text-white mb-6" data-i18n="inst.val.tit">Valores</h3>
+                    <h3 class="text-2xl font-display text-white mb-6">Valores</h3>
                     <div class="space-y-4 flex-grow">
                         <div>
-                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1" data-i18n="inst.val.1.tit">Autenticidade</span>
-                            <p class="text-slate-400 text-sm font-light" data-i18n="inst.val.1.sub">Projetos que respeitam a identidade da terra e cultura local.</p>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Autenticidade</span>
+                            <p class="text-slate-400 text-sm font-light">Projetos que respeitam a identidade da terra e cultura local.</p>
                         </div>
                         <div>
-                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1" data-i18n="inst.val.2.tit">Rigor Técnico</span>
-                            <p class="text-slate-400 text-sm font-light" data-i18n="inst.val.2.sub">Precisão do enquadramento legal à execução da obra.</p>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Rigor Técnico</span>
+                            <p class="text-slate-400 text-sm font-light">Precisão do enquadramento legal à execução da obra.</p>
                         </div>
                         <div>
-                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1" data-i18n="inst.val.3.tit">Sustentabilidade Real</span>
-                            <p class="text-slate-400 text-sm font-light" data-i18n="inst.val.3.sub">Princípio de trabalho para impacto ambiental mínimo.</p>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Sustentabilidade Real</span>
+                            <p class="text-slate-400 text-sm font-light">Princípio de trabalho para impacto ambiental mínimo.</p>
                         </div>
                         <div>
-                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1" data-i18n="inst.val.4.tit">Transparência</span>
-                            <p class="text-slate-400 text-sm font-light" data-i18n="inst.val.4.sub">Cliente informado em cada fase, sem "letra pequena".</p>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Transparência</span>
+                            <p class="text-slate-400 text-sm font-light">Cliente informado em cada fase, sem "letra pequena".</p>
                         </div>
                         <div>
-                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1" data-i18n="inst.val.5.tit">Impacto Duradouro</span>
-                            <p class="text-slate-400 text-sm font-light" data-i18n="inst.val.5.sub">Legado para o investidor, comunidade e território.</p>
+                            <span class="text-primary text-[10px] uppercase tracking-widest font-bold block mb-1">Impacto Duradouro</span>
+                            <p class="text-slate-400 text-sm font-light">Legado para o investidor, comunidade e território.</p>
                         </div>
                     </div>
                 </div>
@@ -1201,39 +1209,39 @@
     <!-- Team -->
     <section class="py-24 border-t border-primary/10">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="parc.pre">PARCERIAS
+            <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">PARCERIAS
                 ESTRATÉGICAS</span>
-            <h2 class="text-4xl md:text-5xl font-display mb-16" data-i18n="parc.tit">Uma rede de especialistas ao seu serviço</h2>
+            <h2 class="text-4xl md:text-5xl font-display mb-16">Uma rede de especialistas ao seu serviço</h2>
             <div class="grid grid-cols-2 md:grid-cols-5 gap-12">
                 <div class="flex flex-col items-center">
                     <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">architecture</span>
                     </div>
-                    <h4 class="text-white font-medium uppercase tracking-widest text-sm" data-i18n="parc.1">Arquitetos</h4>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Arquitetos</h4>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">engineering</span>
                     </div>
-                    <h4 class="text-white font-medium uppercase tracking-widest text-sm" data-i18n="parc.2">Engenheiros</h4>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Engenheiros</h4>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">solar_power</span>
                     </div>
-                    <h4 class="text-white font-medium uppercase tracking-widest text-sm" data-i18n="parc.3">Especialistas Solar</h4>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Especialistas Solar</h4>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">foundation</span>
                     </div>
-                    <h4 class="text-white font-medium uppercase tracking-widest text-sm" data-i18n="parc.4">Infraestruturas</h4>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Infraestruturas</h4>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="size-16 flex items-center justify-center rounded-full bg-primary/10 mb-4">
                         <span class="material-symbols-outlined text-primary text-3xl">payments</span>
                     </div>
-                    <h4 class="text-white font-medium uppercase tracking-widest text-sm" data-i18n="parc.5">Financiamento</h4>
+                    <h4 class="text-white font-medium uppercase tracking-widest text-sm">Financiamento</h4>
                 </div>
             </div>
         </div>
@@ -1243,8 +1251,8 @@
     <section class="py-24 bg-background-light dark:bg-background-dark border-t border-white/5">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block" data-i18n="faq.pre">Dúvidas Comuns</span>
-                <h2 class="text-4xl font-display" data-i18n="faq.tit">Perguntas Frequentes</h2>
+                <span class="text-primary uppercase tracking-[0.3em] text-sm font-bold mb-4 block">Dúvidas Comuns</span>
+                <h2 class="text-4xl font-display">Perguntas Frequentes</h2>
             </div>
             <div class="space-y-4">
                 <!-- FAQ Item 1 -->
@@ -1252,16 +1260,16 @@
                     class="group border border-white/10 rounded-xl bg-white/[0.02] [&_summary::-webkit-details-marker]:hidden">
                     <summary
                         class="flex items-center justify-between gap-1.5 p-6 text-white cursor-pointer hover:bg-white/[0.04] transition-colors rounded-xl outline-none">
-                        <h4 class="font-bold text-lg" data-i18n="faq.1.q">É possível financiar a compra de um terreno rústico?</h4>
+                        <h4 class="font-bold text-lg">É possível financiar a compra de um terreno rústico?</h4>
                         <span
                             class="shrink-0 transition duration-300 group-open:-rotate-180 material-symbols-outlined text-primary">expand_more</span>
                     </summary>
                     <div class="px-6 pb-6 text-slate-400 leading-relaxed space-y-4">
-                        <p data-i18n="faq.1.a1">Sim. Ao contrário do que muitos pensam, é possível obter financiamento específico para a
+                        <p>Sim. Ao contrário do que muitos pensam, é possível obter financiamento específico para a
                             aquisição de terrenos rústicos em Portugal. Trabalhamos com parceiros intermediadores de
                             crédito especializados neste segmento, que conhecem as particularidades deste tipo de ativo
                             e conseguem estruturar soluções de financiamento adaptadas a cada situação.</p>
-                        <p data-i18n="faq.1.a2">Se está a considerar adquirir um terreno rústico e precisa de apoio financeiro para o fazer,
+                        <p>Se está a considerar adquirir um terreno rústico e precisa de apoio financeiro para o fazer,
                             fale connosco e colocamo-lo em contacto com os parceiros certos.</p>
                     </div>
                 </details>
@@ -1270,16 +1278,16 @@
                     class="group border border-white/10 rounded-xl bg-white/[0.02] [&_summary::-webkit-details-marker]:hidden">
                     <summary
                         class="flex items-center justify-between gap-1.5 p-6 text-white cursor-pointer hover:bg-white/[0.04] transition-colors rounded-xl outline-none">
-                        <h4 class="font-bold text-lg" data-i18n="faq.2.q">Posso desenvolver projetos em terrenos rústicos?</h4>
+                        <h4 class="font-bold text-lg">Posso desenvolver projetos em terrenos rústicos?</h4>
                         <span
                             class="shrink-0 transition duration-300 group-open:-rotate-180 material-symbols-outlined text-primary">expand_more</span>
                     </summary>
                     <div class="px-6 pb-6 text-slate-400 leading-relaxed space-y-4">
-                        <p data-i18n="faq.2.a1">Sim. É possível desenvolver projetos de ecoturismo e turismo de natureza em terrenos rústicos
+                        <p>Sim. É possível desenvolver projetos de ecoturismo e turismo de natureza em terrenos rústicos
                             em Portugal, desde que respeitadas as condicionantes legais aplicáveis a cada propriedade. A
                             viabilidade depende de vários fatores — como a classificação do solo no PDM, a existência de
                             REN ou RAN, e as regras específicas do município onde o terreno se localiza.</p>
-                        <p data-i18n="faq.2.a2">É precisamente aqui que entra o nosso trabalho: analisamos cada terreno individualmente,
+                        <p>É precisamente aqui que entra o nosso trabalho: analisamos cada terreno individualmente,
                             identificamos o que é possível fazer dentro do enquadramento legal e desenhamos o projeto
                             mais rentável dentro dessas condições. Cada terreno tem o seu potencial — o nosso trabalho é
                             revelá-lo.</p>
@@ -1290,17 +1298,17 @@
                     class="group border border-white/10 rounded-xl bg-white/[0.02] [&_summary::-webkit-details-marker]:hidden">
                     <summary
                         class="flex items-center justify-between gap-1.5 p-6 text-white cursor-pointer hover:bg-white/[0.04] transition-colors rounded-xl outline-none">
-                        <h4 class="font-bold text-lg" data-i18n="faq.3.q">Posso candidatar-me a fundos do governo ou da União Europeia para
+                        <h4 class="font-bold text-lg">Posso candidatar-me a fundos do governo ou da União Europeia para
                             financiar o meu projeto?</h4>
                         <span
                             class="shrink-0 transition duration-300 group-open:-rotate-180 material-symbols-outlined text-primary">expand_more</span>
                     </summary>
                     <div class="px-6 pb-6 text-slate-400 leading-relaxed space-y-4">
-                        <p data-i18n="faq.3.a1">Sim. Existem diversas fontes de financiamento público disponíveis para projetos de ecoturismo
+                        <p>Sim. Existem diversas fontes de financiamento público disponíveis para projetos de ecoturismo
                             e turismo rural em Portugal — a nível nacional, europeu e até americano. Estes programas
                             podem cobrir uma parte significativa do investimento, em alguns casos a fundo perdido,
                             tornando projetos que pareciam inviáveis numa realidade concreta.</p>
-                        <p data-i18n="faq.3.a2">Os critérios de elegibilidade, os montantes disponíveis e os prazos de candidatura variam
+                        <p>Os critérios de elegibilidade, os montantes disponíveis e os prazos de candidatura variam
                             conforme o tipo de projeto, a localização e o perfil do promotor. Apoiamos os nossos
                             clientes na identificação das melhores oportunidades de financiamento para cada caso
                             concreto.</p>
@@ -1311,19 +1319,19 @@
                     class="group border border-white/10 rounded-xl bg-white/[0.02] [&_summary::-webkit-details-marker]:hidden">
                     <summary
                         class="flex items-center justify-between gap-1.5 p-6 text-white cursor-pointer hover:bg-white/[0.04] transition-colors rounded-xl outline-none">
-                        <h4 class="font-bold text-lg" data-i18n="faq.4.q">Como funciona o vosso serviço de consultoria?</h4>
+                        <h4 class="font-bold text-lg">Como funciona o vosso serviço de consultoria?</h4>
                         <span
                             class="shrink-0 transition duration-300 group-open:-rotate-180 material-symbols-outlined text-primary">expand_more</span>
                     </summary>
                     <div class="px-6 pb-6 text-slate-400 leading-relaxed space-y-4">
-                        <p data-i18n="faq.4.a1">O nosso processo começa sempre pela análise do terreno. Avaliamos a localização, o potencial
+                        <p>O nosso processo começa sempre pela análise do terreno. Avaliamos a localização, o potencial
                             natural, as condicionantes legais e o enquadramento urbanístico para perceber o que é
                             possível desenvolver e qual o modelo de negócio mais adequado a cada propriedade.</p>
-                        <p data-i18n="faq.4.a2">A partir daí acompanhamos o projeto em todas as suas fases — da viabilidade legal ao
+                        <p>A partir daí acompanhamos o projeto em todas as suas fases — da viabilidade legal ao
                             conceito, do projeto técnico ao licenciamento, e da execução da obra à entrega final. O
                             objetivo é simples: o cliente entrega-nos um terreno e nós devolvemos-lhe um projeto pronto
                             a operar.</p>
-                        <p data-i18n="faq.4.a3">Trabalhamos em todo o território nacional e adaptamos o nosso envolvimento às necessidades de
+                        <p>Trabalhamos em todo o território nacional e adaptamos o nosso envolvimento às necessidades de
                             cada cliente — seja uma análise inicial de viabilidade, seja um acompanhamento completo
                             chave na mão.</p>
                     </div>
@@ -1333,16 +1341,16 @@
                     class="group border border-white/10 rounded-xl bg-white/[0.02] [&_summary::-webkit-details-marker]:hidden">
                     <summary
                         class="flex items-center justify-between gap-1.5 p-6 text-white cursor-pointer hover:bg-white/[0.04] transition-colors rounded-xl outline-none">
-                        <h4 class="font-bold text-lg" data-i18n="faq.5.q">Qual o próximo passo para começar?</h4>
+                        <h4 class="font-bold text-lg">Qual o próximo passo para começar?</h4>
                         <span
                             class="shrink-0 transition duration-300 group-open:-rotate-180 material-symbols-outlined text-primary">expand_more</span>
                     </summary>
                     <div class="px-6 pb-6 text-slate-400 leading-relaxed space-y-4">
-                        <p data-i18n="faq.5.a1">O primeiro passo é simples: fale connosco. Partilhe a localização e as características
+                        <p>O primeiro passo é simples: fale connosco. Partilhe a localização e as características
                             básicas do seu terreno e fazemos uma primeira avaliação de potencial sem compromisso. A
                             partir daí, se houver viabilidade, apresentamos um plano de trabalho claro com fases, prazos
                             e custos definidos.</p>
-                        <p data-i18n="faq.5.a2">Não cobramos pela conversa inicial. Acreditamos que o primeiro contacto deve ser útil para
+                        <p>Não cobramos pela conversa inicial. Acreditamos que o primeiro contacto deve ser útil para
                             ambas as partes — e só avançamos quando há um projeto real para desenvolver.</p>
                     </div>
                 </details>
@@ -1359,14 +1367,16 @@
             <div class="absolute inset-0 bg-background-dark/85 backdrop-blur-[2px] z-10"></div>
         </div>
         <div class="relative z-20 max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-display text-white mb-6" data-i18n="cta.tit">Descubra o verdadeiro potencial do seu
+            <h2 class="text-4xl md:text-5xl font-display text-white mb-6">Descubra o verdadeiro potencial do seu
                 terreno.</h2>
-            <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto" data-i18n="cta.sub">Não desperdice a oportunidade de criar um legado
+            <p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">Não desperdice a oportunidade de criar um legado
                 sustentável com alto rendimento. Agende o diagnóstico viário gratuito para a sua terra.</p>
             <a href="analise.html"
-                class="inline-flex bg-primary hover:bg-white text-background-dark hover:text-primary px-10 py-5 rounded-lg font-bold uppercase tracking-wider transition-all items-center justify-center gap-2 group shadow-2xl shadow-primary/20" data-i18n="cta.btn">Iniciar Análise do Terreno
+                class="inline-flex bg-primary hover:bg-white text-background-dark hover:text-primary px-10 py-5 rounded-lg font-bold uppercase tracking-wider transition-all items-center justify-center gap-2 group shadow-2xl shadow-primary/20">
+                Iniciar Análise do Terreno
                 <span
-                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span></a>
+                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
         </div>
     </section>
 
@@ -1379,12 +1389,14 @@
                         <span class="material-symbols-outlined text-primary text-3xl">landscape</span>
                         <span class="text-2xl font-display font-bold text-white">Base Rústico</span>
                     </div>
-                    <p class="text-slate-400 max-w-sm mb-6" data-i18n="footer.p">Líderes em consultoria para desenvolvimento rural sustentável e ecoturismo em Portugal.</p>
+                    <p class="text-slate-400 max-w-sm mb-6">
+                        Líderes em consultoria para desenvolvimento rural sustentável e ecoturismo em Portugal.
+                    </p>
                 </div>
                 <div>
-                    <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm" data-i18n="footer.loc.tit">Localização</h4>
-                    <p class="text-slate-400 mb-2" data-i18n="footer.loc.1">Algarve, Portugal</p>
-                    <p class="text-slate-400" data-i18n="footer.loc.2">Atendimento Nacional</p>
+                    <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Localização</h4>
+                    <p class="text-slate-400 mb-2">Algarve, Portugal</p>
+                    <p class="text-slate-400">Atendimento Nacional</p>
                 </div>
                 <div>
                     <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-sm">Contacto</h4>
@@ -1396,13 +1408,13 @@
             </div>
             <div
                 class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-slate-500 text-sm">
-                <p data-i18n="footer.copy">© 2024 Base Rústico. Todos os direitos reservados.</p>
+                <p>© 2024 Base Rústico. Todos os direitos reservados.</p>
                 <div class="flex flex-wrap gap-x-8 gap-y-2 mt-4 md:mt-0 justify-center md:justify-end">
-                    <a class="hover:text-primary transition-colors" href="#visao" data-i18n="footer.visao">A Nossa Visão</a>
-                    <a class="hover:text-primary transition-colors" href="#projetos" data-i18n="footer.port">Portfólio de Projetos</a>
-                    <a class="hover:text-primary transition-colors" href="privacidade.html" data-i18n="footer.priv">Privacidade</a>
-                    <a class="hover:text-primary transition-colors" href="termos.html" data-i18n="footer.termos">Termos e Condições</a>
-                    <a class="hover:text-primary transition-colors" href="termos.html" data-i18n="footer.cookies">Cookies</a>
+                    <a class="hover:text-primary transition-colors" href="#visao">A Nossa Visão</a>
+                    <a class="hover:text-primary transition-colors" href="#projetos">Portfólio de Projetos</a>
+                    <a class="hover:text-primary transition-colors" href="privacidade.html">Privacidade</a>
+                    <a class="hover:text-primary transition-colors" href="termos.html">Termos e Condições</a>
+                    <a class="hover:text-primary transition-colors" href="termos.html">Cookies</a>
                 </div>
             </div>
         </div>
@@ -1517,8 +1529,6 @@
             }
         });
     </script>
-    <script src="translations.js"></script>
-    <script src="i18n.js"></script>
 </body>
 
 <!-- WhatsApp Floating Button -->
