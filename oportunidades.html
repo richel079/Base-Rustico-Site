@@ -151,6 +151,22 @@
         .terreno-card:hover .terreno-img {
             transform: scale(1.05);
         }
+        
+        .terreno-img-container {
+            background-color: #0F0F10;
+            background-image: radial-gradient(circle at center, #2d2d2d 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .terreno-img-container::before {
+            content: 'landscape';
+            font-family: 'Material Icons';
+            font-size: 3rem;
+            color: rgba(201, 168, 76, 0.1);
+            position: absolute;
+            z-index: 0;
+        }
 
         /* Buttons */
         .btn-primary {
@@ -322,11 +338,11 @@
 
                 <select id="filter-tamanho" class="w-full px-4 py-3 rounded-md text-sm font-medium">
                     <option value="all">Todos os tamanhos</option>
-                    <option value="<2">Menos de 2 ha</option>
-                    <option value="2-5">2 a 5 ha</option>
-                    <option value="5-10">5 a 10 ha</option>
-                    <option value="10-25">10 a 25 ha</option>
-                    <option value=">25">Mais de 25 ha</option>
+                    <option value="lt2">Menos de 2 ha</option>
+                    <option value="2a5">2 a 5 ha</option>
+                    <option value="5a10">5 a 10 ha</option>
+                    <option value="10a25">10 a 25 ha</option>
+                    <option value="gt25">Mais de 25 ha</option>
                 </select>
 
                 <select id="filter-proximidade" class="w-full px-4 py-3 rounded-md text-sm font-medium">
@@ -360,13 +376,16 @@
     </main>
 
     <!-- SECÇÃO: RODAPÉ -->
-    <footer class="py-8 border-t border-primary/20 bg-background px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-text-secondary">
+    <footer class="py-12 border-t border-primary/20 bg-background px-6">
+        <div class="max-w-7xl mx-auto flex flex-col justify-between items-center gap-8">
             <div class="flex items-center gap-2 opacity-60">
                 <span class="material-icons text-primary">landscape</span>
                 <span class="font-serif font-bold uppercase tracking-widest text-[#FFF]">Base Rústico</span>
             </div>
-            <p>© 2024 Base Rústico. Todos os direitos reservados.</p>
+            <p class="text-[11px] text-text-secondary leading-relaxed max-w-3xl text-center opacity-60">
+                A informação apresentada resulta de análise técnica preliminar realizada pela Base Rústico com base em dados públicos (PDM, cartografia oficial, caderneta predial). Não substitui parecer jurídico nem estudo de viabilidade formal.
+            </p>
+            <p class="text-xs text-text-secondary opacity-60">© 2025 Base Rústico. Todos os direitos reservados.</p>
         </div>
     </footer>
 
@@ -489,7 +508,7 @@
                 const cardHTML = `
                     <div class="terreno-card card-anim" style="animation-delay: ${i * 0.05}s">
                         <div class="terreno-img-container">
-                            <img src="${t.imagem}" alt="${t.nome}" class="terreno-img" loading="lazy" />
+                            <img src="${t.imagem}" alt="${t.nome}" class="terreno-img" loading="lazy" onerror="this.style.opacity='0'; this.classList.add('hidden');" />
                             
                             <!-- State Badge -->
                             <div class="absolute top-3 right-3 z-10 box-shadow">
@@ -572,11 +591,11 @@
 
                 // Filtro 4: Tamanho
                 if (tamanho !== "all") {
-                    if (tamanho === "<2" && t.area >= 2) return false;
-                    if (tamanho === "2-5" && (t.area < 2 || t.area > 5)) return false;
-                    if (tamanho === "5-10" && (t.area < 5 || t.area > 10)) return false;
-                    if (tamanho === "10-25" && (t.area < 10 || t.area > 25)) return false;
-                    if (tamanho === ">25" && t.area <= 25) return false;
+                    if (tamanho === "lt2" && t.area >= 2) return false;
+                    if (tamanho === "2a5" && (t.area < 2 || t.area > 5)) return false;
+                    if (tamanho === "5a10" && (t.area < 5 || t.area > 10)) return false;
+                    if (tamanho === "10a25" && (t.area < 10 || t.area > 25)) return false;
+                    if (tamanho === "gt25" && t.area <= 25) return false;
                 }
 
                 // Filtro 5: Proximidade (o terreno deve incluir a tag de proximidade)
@@ -618,7 +637,5 @@
             document.body.style.overflow = '';
         }
     </script>
-    <script src="translations.js"></script>
-    <script src="i18n.js"></script>
 </body>
 </html>
