@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Detalhe do Terreno - Base Rústico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c9a84c",
+                        "primary-hover": "#b8943f",
+                        "background": "#1a1a1a",
+                        "surface": "#2d2d2d",
+                        "text": "#ffffff",
+                        "text-secondary": "#b0b0b0",
+                        "success": "#4caf50",
+                        "warning": "#ff9800",
+                        "danger": "#f44336"
+                    },
+                    fontFamily: {
+                        "serif": ["Cormorant Garamond", "serif"],
+                        "sans": ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"]
+                    },
+                    boxShadow: {
+                        "premium": "0 4px 20px rgba(0,0,0,0.3)"
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'system-ui', '-apple-system', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Hero Image overlay */
+        .hero-img-container {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            max-height: 500px;
+            min-height: 300px;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(201, 168, 76, 0.3);
+        }
+        .hero-img-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #1a1a1a 0%, transparent 40%, rgba(0,0,0,0.5) 100%);
+            z-index: 1;
+        }
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+            /* Add animation later if wished */
+        }
+
+        /* Badges */
+        .badge {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Box / Cards Styling */
+        .info-box {
+            background-color: #2d2d2d;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            padding: 32px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #c9a84c;
+            color: #1a1a1a;
+            font-weight: 700;
+            padding: 14px 24px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        .btn-primary:hover {
+            background-color: #b8943f;
+        }
+        .btn-outline {
+            border: 1px solid #c9a84c;
+            color: #c9a84c;
+            font-weight: 700;
+            padding: 14px 24px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: transparent;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        .btn-outline:hover {
+            background-color: rgba(201, 168, 76, 0.1);
+        }
+        
+        .btn-link {
+            color: #c9a84c;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-link:hover {
+            color: #b8943f;
+            text-decoration: underline;
+        }
+
+        /* Check Table Formats */
+        .check-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .check-table th, .check-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .check-table th {
+            background: rgba(0,0,0,0.2);
+            color: #c9a84c;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+        .check-table tr:last-child td {
+            border-bottom: none;
+        }
+        .check-table td:first-child {
+            font-weight: 500;
+            color: #fff;
+            width: 60%;
+        }
+        .check-table td:nth-child(2) {
+            color: #b0b0b0;
+        }
+
+        .highlight-box {
+            background-color: rgba(201, 168, 76, 0.1);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-text min-h-screen flex flex-col">
+
+    <!-- SECÇÃO: HEADER -->
+    <header class="absolute top-0 z-50 px-6 py-6 w-full pointer-events-none">
+        <div class="max-w-7xl mx-auto flex items-center">
+            <!-- EDITAR: Link de voltar para oportunidades -->
+            <a href="oportunidades.html" class="pointer-events-auto flex items-center gap-2 text-white hover:text-primary transition-colors font-bold text-sm uppercase tracking-widest bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 hover:border-primary/50">
+                <span class="material-icons text-xl">arrow_back</span>
+                Voltar às Oportunidades
+            </a>
+        </div>
+    </header>
+
+    <!-- SECÇÃO: TOPO (IMAGE) -->
+    <section class="hero-img-container">
+        <!-- EDITAR: Image placeholder do Terreno -->
+        <img src="https://images.unsplash.com/photo-1544062332-9cb480eebd4e?q=80&w=1920&auto=format&fit=crop" alt="Terreno Barracha" class="hero-img" />
+        
+        <div class="absolute top-24 left-0 w-full z-20 px-6">
+            <div class="max-w-7xl mx-auto flex gap-4">
+                <!-- EDITAR: Estado do terreno -->
+                <span class="badge bg-success text-white shadow-lg shadow-black/50">
+                    <span class="material-icons text-sm">event_available</span>
+                    Disponível
+                </span>
+                
+                <!-- EDITAR: Financiamento -->
+                <span class="badge bg-primary text-black shadow-lg shadow-black/50">
+                    <span class="material-icons text-sm">account_balance</span>
+                    Financiável
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 w-full flex-grow">
+
+        <!-- SECÇÃO: RESUMO RÁPIDO -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-20 relative -mt-24 z-30">
+            <!-- Título e Resumo -->
+            <div class="lg:col-span-2 pt-16 lg:pt-0">
+                <!-- EDITAR: Info Básica -->
+                <h1 class="font-serif text-5xl md:text-6xl font-bold mb-4 leading-tight text-white drop-shadow-lg">
+                    Barracha — Penedo Gordo
+                </h1>
+                
+                <p class="text-text-secondary text-xl font-medium mb-6 flex items-center gap-2">
+                    <span class="material-icons text-primary">location_on</span>
+                    São Brás de Alportel, Algarve
+                </p>
+                <div class="bg-black/20 px-4 py-2 rounded-md inline-flex items-center gap-2 border border-white/5 mb-8">
+                    <span class="material-icons text-text-secondary text-sm">my_location</span>
+                    <span class="text-sm font-mono text-text-secondary tracking-widest">Coordenadas GPS: 37°09'12.4"N 7°53'14.1"W</span>
+                </div>
+                
+                <p class="text-lg leading-relaxed text-text-secondary mb-6">
+                    A apenas quinze minutos do epicentro do Algarve, este terreno destaca-se pelo seu relevo moderado e natureza imersiva. Extremamente privado e acessível pelas estradas alcatroadas da encosta algarvia. Sem histórico trágico de incêndios há décadas e parcialmente dentro de regulamentações protetoras. Uma joia verde ideal para projetos ecológicos integrativos.
+                </p>
+            </div>
+
+            <!-- Box Acção Dir -->
+            <div class="info-box self-start">
+                <span class="text-sm uppercase tracking-[0.1em] text-text-secondary mb-1 block">Preço</span>
+                <div class="font-serif text-5xl font-bold text-primary mb-8">€85.000</div>
+                
+                <div class="flex flex-col gap-4 mb-8">
+                    <div class="flex items-center justify-between border-b border-white/5 pb-4">
+                        <span class="text-text-secondary">Área Total</span>
+                        <span class="font-bold text-white text-lg flex items-center gap-2">
+                            <span class="material-icons text-primary text-[18px]">straighten</span>
+                            4.4 ha
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-white/5 pb-4">
+                        <span class="text-text-secondary">Tipo Cadastral</span>
+                        <span class="font-bold text-white text-lg flex items-center gap-2">
+                            <span class="material-icons text-primary text-[18px]">category</span>
+                            Rústico
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between pb-2">
+                        <span class="text-text-secondary">Estado</span>
+                        <span class="badge bg-success text-white">Disponível</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <!-- EDITAR: Telefone associado (Whatsapp) -->
+                    <a href="https://wa.me/447598807153?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20terreno%20Barracha." target="_blank" rel="noopener" class="btn-primary w-full shadow-lg shadow-primary/20">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.526 5.845L.057 23.273a.75.75 0 00.92.92l5.428-1.469A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.693-.505-5.23-1.385l-.372-.215-3.862 1.046 1.046-3.862-.215-.372A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-3.039-12.5c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.066.376-.043c.101-.109.433-.504.549-.679s.231-.144.39-.086c.159.058 1.006.474 1.179.563.173.089.289.133.332.202.043.069.043.396-.101.801z"/>
+                        </svg>
+                        Falar com a Base Rústico
+                    </a>
+                    <a href="#" class="btn-outline w-full group">
+                        <span class="material-icons group-hover:scale-110 transition-transform">picture_as_pdf</span>
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECÇÃO: VERIFICAÇÃO BASE RÚSTICO ✅ -->
+        <section class="mb-20">
+            <h2 class="font-serif text-3xl font-bold mb-8 flex items-center gap-3">
+                <span class="material-icons text-success border border-success/30 bg-success/10 p-2 rounded-full text-2xl">verified_user</span>
+                Verificação Base Rústico
+            </h2>
+            
+            <table class="check-table mb-8">
+                <thead>
+                    <tr>
+                        <th>Item Verificado</th>
+                        <th>Resultado Diagnóstico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- EDITAR: Linhas de verificação do Terreno -->
+                    <tr>
+                        <td>PDM — Classificação do Solo</td>
+                        <td>Solo Rústico — Espaços Agro-Silvo-Pastoris</td>
+                    </tr>
+                    <tr>
+                        <td>Reserva Ecológica Nacional (REN)</td>
+                        <td><span class="badge bg-warning text-black">Sim — 30% da área</span></td>
+                    </tr>
+                    <tr>
+                        <td>Reserva Agrícola Nacional (RAN)</td>
+                        <td><span class="badge bg-surface border border-white/20 text-white">Não se aplica</span></td>
+                    </tr>
+                    <tr>
+                        <td>ICNF / Área de Paisagem Protegida</td>
+                        <td><span class="badge bg-success text-white">Livre (Não)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Zona Crítica de Incêndio (Alta Severidade)</td>
+                        <td><span class="badge bg-success text-white">Livre (Baixa / Nula)</span></td>
+                    </tr>
+                    <tr>
+                        <td>Acesso Legal / Servidão</td>
+                        <td><span class="badge bg-success text-white">Sim — Estrada municipal pavimentada</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ligação à Rede de Água Escassa (Distância)</td>
+                        <td>Sim — Menos de 500m</td>
+                    </tr>
+                    <tr>
+                        <td>Ligação à Rede Elétrica (Distância)</td>
+                        <td>PT a 30m da confrontação sul</td>
+                    </tr>
+                    <tr>
+                        <td>Elegibilidade Teórica para Financiamento</td>
+                        <td><span class="badge bg-primary text-black">Sim</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-surface/50 border border-success/20 p-6 rounded-xl flex items-start gap-4">
+                    <span class="material-icons text-success mt-1">check_circle</span>
+                    <div>
+                        <h4 class="font-bold text-white mb-2 uppercase text-sm tracking-wide">O que se pode fazer:</h4>
+                        <p class="text-text-secondary text-sm">Projetos rústicos móveis, Tiny Houses com furos ou sistemas de painéis solares totalmente off-grid. Há tolerância de infraestruturas sazonais ou alojamentos estilo glamping nos 70% limpos de REN.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-surface/50 border border-danger/20 p-6 rounded-xl flex items-start gap-4">
+                    <span class="material-icons text-danger mt-1">cancel</span>
+                    <div>
+                        <h4 class="font-bold text-white mb-2 uppercase text-sm tracking-wide">O que NÃO se pode fazer:</h4>
+                        <p class="text-text-secondary text-sm">Construção tradicional de alvenaria. Subdivisões e loteamentos urbanos na área inserida em Reserva Ecológica. Pavimentação industrial de acessos permanentes sobre as linhas d'água.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECÇÃO: LOCALIZAÇÃO E PROXIMIDADES -->
+        <section class="mb-20">
+            <h2 class="font-serif text-3xl font-bold mb-8 flex items-center gap-3">
+                <span class="material-icons text-primary bg-primary/10 p-2 rounded-full text-2xl">pin_drop</span>
+                Localização & Proximidades
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <!-- Iframe Map (Left 3 cols) -->
+                <div class="lg:col-span-3 h-80 md:h-[400px] w-full rounded-xl overflow-hidden border border-white/5 relative">
+                    <!-- EDITAR: Embed Google Maps Iframe Abaixo. Como placeholder mantivemos um elemento estático bonito. -->
+                    <!-- <iframe src="https://www.google.com/maps/embed?..." width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+                    <div class="absolute inset-0 bg-surface flex flex-col items-center justify-center text-text-secondary px-6 text-center">
+                        <span class="material-icons text-5xl mb-4 opacity-50">map</span>
+                        <p>Substituir este bloco com o <code class="text-primary bg-black/50 px-2 py-1 mx-1 rounded">Iframe do Google Maps</code> (600x400).</p>
+                    </div>
+                </div>
+
+                <!-- Tabela de distâncias (Right 2 cols) -->
+                <div class="lg:col-span-2 info-box h-full flex flex-col justify-center">
+                    <h3 class="font-bold text-white uppercase tracking-widest text-sm mb-6 border-b border-white/10 pb-4">Tempos de Deslocação</h3>
+                    
+                    <ul class="space-y-5">
+                        <li class="flex items-center justify-between text-text-secondary">
+                            <div class="flex items-center gap-3"><span class="material-icons text-primary/80">beach_access</span> Praia mais próxima</div>
+                            <span class="font-bold text-white">20 min</span>
+                        </li>
+                        <li class="flex items-center justify-between text-text-secondary">
+                            <div class="flex items-center gap-3"><span class="material-icons text-primary/80">local_hospital</span> Hospital Regional</div>
+                            <span class="font-bold text-white">15 min</span>
+                        </li>
+                        <li class="flex items-center justify-between text-text-secondary">
+                            <div class="flex items-center gap-3"><span class="material-icons text-primary/80">school</span> Escolas</div>
+                            <span class="font-bold text-white">12 min</span>
+                        </li>
+                        <li class="flex items-center justify-between text-text-secondary">
+                            <div class="flex items-center gap-3"><span class="material-icons text-primary/80">shopping_cart</span> Supermercados</div>
+                            <span class="font-bold text-white">10 min</span>
+                        </li>
+                        <li class="flex items-center justify-between text-text-secondary border-t border-white/5 pt-5 mt-2">
+                            <div class="flex items-center gap-3"><span class="material-icons text-primary">flight_takeoff</span> Aeroporto de Faro</div>
+                            <span class="font-bold text-primary">30 min</span>
+                        </li>
+                    </ul>
+
+                    <div class="mt-8 text-xs text-text-secondary leading-relaxed bg-black/20 p-4 rounded-md">
+                        <strong class="text-white">Acessos Locais:</strong> Excelente estrada com pavimento de asfalto municipal até à borda da propriedade. Sem necessidade de jipe.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECÇÃO: TIPOLOGIA SUGERIDA -->
+        <section class="mb-20">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="font-serif text-3xl font-bold flex items-center gap-3">
+                    <span class="material-icons text-primary bg-primary/10 p-2 rounded-full text-2xl">emoji_objects</span>
+                    Sugestão Base Rústico
+                </h2>
+                <span class="hidden md:inline-flex badge bg-primary/20 text-primary border border-primary/30">Visão Técnica e Comercial</span>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="font-bold text-2xl text-white mb-6 flex items-center gap-2">
+                        <span class="material-icons text-primary">spa</span> Retiro de Imersão Off-Grid
+                    </h3>
+                    <div class="space-y-4 text-text-secondary text-lg leading-relaxed mb-8">
+                        <p>
+                            Considerando as restrições arquitetónicas (30% de REN) ao modelo alvenaria tradicional, e ao incrível relevo geográfico resguardado e privativo deste imóvel, a vocação perfeita desta propriedade foca-se no escoamento do turismo imersivo ecológico. 
+                        </p>
+                        <p>
+                            Unidades modulares ou Tiny Houses de luxo apoiadas em bases flexíveis (estacas tipo Krinner), acopladas a decks e banheiras ao ar livre no pico das elevações sul da propriedade poderão render taxas diárias fortíssimas para hóspedes que precisam de se reconectar no silêncio e no anonimato seguro das encostas de São Brás.
+                        </p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p class="font-medium text-white mb-4">Quer ver o potencial completo? O concept design e análise técnica financeira de viabilidade encontram-se disponíveis nos nossos pacotes privativos.</p>
+                        <a href="index.html#servicos" class="btn-primary w-fit text-xs">Ver Pacotes de Consultoria</a>
+                    </div>
+                </div>
+
+                <div class="w-full h-80 rounded-xl overflow-hidden border border-white/5 relative group">
+                    <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?q=80&w=1280&auto=format&fit=crop" alt="Resort Render" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div class="absolute bottom-4 left-4 badge bg-black/80 text-white backdrop-blur-sm border border-white/10">Render Ilustrativo do Potencial</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECÇÃO: FINANCIAMENTO -->
+        <section class="info-box border-l-4 border-l-primary relative overflow-hidden mb-20 bg-gradient-to-br from-surface to-background">
+            <!-- Icon Background Marca d'água -->
+            <span class="material-icons absolute -right-10 -bottom-10 text-[200px] text-white/5 pointer-events-none">account_balance</span>
+            
+            <div class="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between">
+                <div class="max-w-2xl">
+                    <h3 class="font-serif text-3xl font-bold text-white mb-4 flex items-center gap-3">
+                        Este terreno pode ser financiado
+                    </h3>
+                    <p class="text-text-secondary text-lg leading-relaxed mb-6">
+                        Sim, terrenos rústicos também podem ser financiados — tanto a compra crua do terreno como o desenvolvimento das infraestruturas do projeto turístico associado. Trabalhamos em rede com múltiplos parceiros institucionais especialistas em linhas de crédito bancário e linhas de apoio europeias exclusivas para investimento rústico e sustentável em solo Português.
+                    </p>
+                    <a href="contacto.html" class="btn-link text-lg">
+                        Saber como financiar
+                        <span class="material-icons text-sm">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="hidden md:block flex-shrink-0">
+                    <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <span class="material-icons text-5xl text-primary drop-shadow-md">account_balance</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECÇÃO: CTA FINAL -->
+        <section class="bg-gradient-to-t from-[#1a1a1a] to-[#2d2d2d] rounded-2xl p-10 md:p-16 text-center border border-white/5">
+            <h2 class="font-serif text-4xl font-bold text-white mb-6">Interessado nesta oportunidade?</h2>
+            <p class="text-text-secondary text-lg mb-10 max-w-xl mx-auto">Recomendamos sempre o agendamento de uma visita validada e análise aprofundada connosco para ter um domínio pleno antes da aquisição.</p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="https://wa.me/447598807153?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20terreno%20Barracha." target="_blank" rel="noopener" class="btn-primary w-full sm:w-auto shadow-lg shadow-primary/20">
+                    Falar com a Base Rústico no WhatsApp
+                </a>
+                <a href="#" class="btn-outline w-full sm:w-auto">
+                    Download PDF Completo
+                </a>
+            </div>
+            
+            <div class="mt-8">
+                <a href="oportunidades.html" class="btn-link uppercase tracking-widest text-xs">
+                    <span class="material-icons text-sm pt-0.5">grid_view</span>
+                    Ver Outras Oportunidades
+                </a>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- SECÇÃO: RODAPÉ & DISCLAIMER -->
+    <footer class="py-12 border-t border-primary/20 bg-background px-6">
+        <div class="max-w-7xl mx-auto flex flex-col justify-between items-center gap-8">
+            <div class="flex items-center gap-2 opacity-80">
+                <span class="material-icons text-primary text-2xl">landscape</span>
+                <span class="font-serif font-bold uppercase tracking-widest text-[#FFF]">Base Rústico</span>
+            </div>
+            
+            <p class="text-[11px] text-text-secondary leading-relaxed max-w-3xl text-center opacity-60 px-4">
+                <strong>Disclaimer:</strong> A informação apresentada resulta de análise técnica preliminar realizada pela Base Rústico com base em dados públicos (PDM, cartografia oficial SIG, caderneta predial). Não substitui parecer jurídico nem estudo de viabilidade estrito camarário e formal. Todas as áreas e distâncias são aproximadas. A venda e o compromisso definitivo carecem da assinatura e reconhecimento legal em notariado oficial.
+            </p>
+            
+            <div class="text-xs text-text-secondary opacity-60">
+                © 2024 Base Rústico. Portugal.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
